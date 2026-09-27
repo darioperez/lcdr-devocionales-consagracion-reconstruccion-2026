@@ -62,8 +62,8 @@ const notificaciones = [1, 2, 3, 4, 5].map((n) => ({
     es: `Consagración⇒Reconstrucción · Día ${n}`,
   },
   contents: {
-    en: titulos[n],
-    es: titulos[n],
+    en: `Es tiempo de edificar. No te pierdas el devocional de hoy, ${titulos[n]}`,
+    es: `Es tiempo de edificar. No te pierdas el devocional de hoy, ${titulos[n]}`,
   },
   url: `${BASE_URL}/dias/${n}`,
   delayed_option: "timezone",
