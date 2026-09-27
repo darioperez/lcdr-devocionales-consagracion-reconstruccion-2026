@@ -82,16 +82,10 @@ OneSignalDeferred.push(async function (OneSignal) {
             </ViewLink>
             <nav className="flex shrink-0 items-center gap-0.5 text-sm sm:gap-1">
               <ViewLink
-                href="/"
-                className="hidden rounded-full px-2.5 py-1.5 text-smoke transition-colors hover:bg-cream hover:text-ink sm:inline-block sm:px-3"
-              >
-                Inicio
-              </ViewLink>
-              <ViewLink
                 href="/dias"
                 className="rounded-full px-2.5 py-1.5 text-smoke transition-colors hover:bg-cream hover:text-ink sm:px-3"
               >
-                Los 5 días
+                Plan
               </ViewLink>
               <ThemeToggle />
             </nav>

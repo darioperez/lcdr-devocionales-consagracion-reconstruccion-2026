@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "reminders": "node scripts/schedule-reminders.mjs"
+    "reminders": "node --env-file-if-exists=.env scripts/schedule-reminders.mjs"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

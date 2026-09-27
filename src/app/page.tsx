@@ -28,7 +28,7 @@ export default function Home() {
     <div className="rise-in mx-auto w-full max-w-3xl px-6 py-16 sm:py-24">
       <section className="flex flex-col items-center text-center">
         <p className="rounded-full border border-line bg-cream px-4 py-1.5 text-xs font-semibold tracking-[0.14em] text-clay-deep uppercase">
-          Devocional para varones · 5 días
+          Serie Devocional
         </p>
 
         <h1 className="mt-6 flex flex-wrap items-center justify-center gap-x-3 font-display text-4xl font-semibold tracking-tight text-balance sm:text-6xl">

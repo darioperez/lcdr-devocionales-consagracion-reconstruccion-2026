@@ -20,7 +20,8 @@ const plan = parseYaml(
   readFileSync(path.join(root, "content", "plan.yaml"), "utf8"),
 );
 
-const APP_ID = process.env.ONESIGNAL_APP_ID;
+const APP_ID =
+  process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID || process.env.ONESIGNAL_APP_ID;
 const REST_KEY = process.env.ONESIGNAL_REST_API_KEY;
 const BASE_URL = (process.env.BASE_URL ?? "").replace(/\/+$/, "");
 
@@ -33,7 +34,7 @@ function fail(msg) {
 
 if (!APP_ID || !REST_KEY || !BASE_URL) {
   fail(
-    "Faltan variables: ONESIGNAL_APP_ID, ONESIGNAL_REST_API_KEY y BASE_URL son obligatorias.",
+    "Faltan variables: NEXT_PUBLIC_ONESIGNAL_APP_ID, ONESIGNAL_REST_API_KEY y BASE_URL son obligatorias.",
   );
 }
 
@@ -55,7 +56,7 @@ const titulos = {
 const notificaciones = [1, 2, 3, 4, 5].map((n) => ({
   app_id: APP_ID,
   name: `Devocional · Día ${n}`,
-  included_segments: ["Subscribed Users"],
+  filters: [{ field: "session_count", relation: ">", value: "0" }],
   headings: {
     en: `Consagración⇒Reconstrucción · Día ${n}`,
     es: `Consagración⇒Reconstrucción · Día ${n}`,
@@ -67,6 +68,7 @@ const notificaciones = [1, 2, 3, 4, 5].map((n) => ({
   url: `${BASE_URL}/dias/${n}`,
   delayed_option: "timezone",
   delivery_time_of_day: "8:00PM",
+  send_after: `${fecha(n)}T00:00:00Z`,
 }));
 
 if (!SEND) {
@@ -92,8 +94,10 @@ for (const n of notificaciones) {
     body: JSON.stringify(n),
   });
   const body = await res.json().catch(() => ({}));
-  if (!res.ok) {
-    fail(`Día ${notificaciones.indexOf(n) + 1}: ${res.status} ${JSON.stringify(body)}`);
+  if (!res.ok || !body.id || (body.errors && body.errors.length > 0)) {
+    fail(
+      `Día ${notificaciones.indexOf(n) + 1}: ${res.status} ${JSON.stringify(body)}`,
+    );
   }
   console.log(
     `✔ Día ${notificaciones.indexOf(n) + 1} programado (id: ${body.id})`,

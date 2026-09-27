@@ -2,6 +2,13 @@
 
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y el versionado sigue [SemVer](https://semver.org/lang/es/).
 
+## [0.4.1] - 2026-09-26
+
+### Corregido
+
+- `scripts/schedule-reminders.mjs`: acepta `NEXT_PUBLIC_ONESIGNAL_APP_ID`, usa filtros en lugar del segmento "Subscribed Users" (evita el error "All included players are not subscribed" y se evalúa al enviar, incluyendo suscriptores futuros), agrega `send_after` por día para que cada recordatorio llegue en su fecha y no todos a la vez, y reporta errores de la API de OneSignal
+- Script npm `reminders` carga `.env` automáticamente (`--env-file-if-exists`)
+
 ## [0.4.0] - 2026-09-26
 
 ### Añadido
