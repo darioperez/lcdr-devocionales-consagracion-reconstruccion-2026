@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import DayCard from "@/components/day-card";
 import SubscribeButton from "@/components/subscribe-button";
 import { formatDateEs } from "@/lib/format";
-import { dateOfDay, dayStatus, getPlan, todayInTimeZone } from "@/lib/plans";
+import {
+  dateOfDay,
+  dayStatus,
+  getPlan,
+  resolveUserTimeZone,
+  todayInTimeZone,
+} from "@/lib/plans";
 
 export const dynamic = "force-dynamic";
 
@@ -10,10 +17,14 @@ export const metadata: Metadata = {
   title: "Los 5 días",
 };
 
-export default function DiasPage() {
+export default async function DiasPage() {
   const plan = getPlan();
   const { config, dias } = plan;
-  const today = todayInTimeZone(config.timezone);
+  const userTz = resolveUserTimeZone(
+    (await cookies()).get("tz")?.value,
+    config.timezone,
+  );
+  const today = todayInTimeZone(userTz);
 
   const fechaInicio = formatDateEs(config.inicio, config.timezone);
   const fechaFin = formatDateEs(config.fin, config.timezone);

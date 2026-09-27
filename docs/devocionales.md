@@ -1,5 +1,5 @@
-# Serie devocional: “Consagración para la reconstrucción”
-**Lunes a viernes | Cierre: Noche de Adoración de Hombres**
+# Serie devocional: «Consagración⇒Reconstrucción»
+**Lunes a viernes | Cierre: Noche de Adoración para Hombres**
 
 ---
 

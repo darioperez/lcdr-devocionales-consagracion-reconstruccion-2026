@@ -34,7 +34,7 @@ Todo el contenido vive en `content/`:
 
 Reglas de acceso (implementadas en `src/lib/plans.ts`):
 
-- Un día se desbloquea a la medianoche de su fecha en la zona horaria del plan
+- Un día se desbloquea a la medianoche de su fecha en la **zona horaria del visitante** (detectada con una cookie `tz` en la primera visita); si no se conoce, se usa la zona horaria del plan (America/Caracas)
 - Los días pasados y el actual son accesibles; los futuros muestran estado bloqueado y devuelven 404
 - Añadir un nuevo plan = editar fechas y reemplazar los 5 archivos de días
 

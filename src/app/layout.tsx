@@ -36,6 +36,15 @@ export const viewport: Viewport = {
 
 const appId = process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID;
 
+const tzInitScript = `(function () {
+  try {
+    if (!document.cookie.includes("tz=")) {
+      var tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      document.cookie = "tz=" + tz + ";path=/;max-age=31536000;SameSite=Lax";
+    }
+  } catch (e) {}
+})();`;
+
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -53,6 +62,7 @@ export default async function RootLayout({
         .join(" ")}
     >
       <body className="flex min-h-dvh flex-col overflow-x-clip antialiased">
+        <script dangerouslySetInnerHTML={{ __html: tzInitScript }} />
         {appId && (
           <>
             <Script
@@ -72,7 +82,7 @@ OneSignalDeferred.push(async function (OneSignal) {
           </>
         )}
 
-        <header className="border-b border-line pt-[env(safe-area-inset-top)]">
+        <header className="sticky top-0 z-50 border-b border-line bg-paper/90 pt-[env(safe-area-inset-top)] backdrop-blur">
           <div className="mx-auto flex h-16 w-full max-w-3xl items-center justify-between gap-3 px-4 sm:px-6">
             <ViewLink
               href="/"
@@ -101,8 +111,8 @@ OneSignalDeferred.push(async function (OneSignal) {
             </p>
             <p className="text-xs text-smoke">{plan.config.iglesia.linea}</p>
             <p className="mt-2 text-xs text-smoke/80">
-              {plan.config.iglesia.nombre} · Hecho para varones que se arrodillan
-              antes de edificar
+              {plan.config.iglesia.nombre} · Hecho para hombres que se arrodillan
+              antes de dar cualquier paso
             </p>
           </div>
         </footer>

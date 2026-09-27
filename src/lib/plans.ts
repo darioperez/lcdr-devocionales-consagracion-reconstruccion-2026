@@ -44,6 +44,21 @@ export function todayInTimeZone(timeZone: string, now?: Date): string {
   }).format(now ?? new Date());
 }
 
+export function resolveUserTimeZone(
+  tz: string | undefined,
+  fallback: string,
+): string {
+  if (!tz) return fallback;
+  try {
+    const resolved = new Intl.DateTimeFormat("en-CA", {
+      timeZone: tz,
+    }).resolvedOptions().timeZone;
+    return resolved || fallback;
+  } catch {
+    return fallback;
+  }
+}
+
 export function planPhase(start: string, end: string, today: string): PlanPhase {
   if (today < start) return "before";
   if (today > end) return "after";

@@ -2,6 +2,13 @@
 
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y el versionado sigue [SemVer](https://semver.org/lang/es/).
 
+## [1.1.0] - 2026-09-27
+
+### Añadido
+
+- Barra superior fija (sticky) con fondo translúcido y desenfoque, adaptada a ambos temas
+- Desbloqueo por zona horaria del visitante: cada día se abre a la medianoche local del visitante (cookie `tz`, con America/Caracas como respaldo); la cuenta regresiva del inicio también usa la medianoche local
+
 ## [1.0.0] - 2026-09-26
 
 ### Cambiado

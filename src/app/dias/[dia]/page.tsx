@@ -1,11 +1,19 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import Markdown from "@/components/markdown";
 import ViewLink from "@/components/view-link";
 import { ArrowLeftIcon, ArrowRightIcon } from "@/components/icons";
 import { formatDateEs, weekdayEs } from "@/lib/format";
-import { dateOfDay, dayStatus, getDay, getPlan, todayInTimeZone } from "@/lib/plans";
+import {
+  dateOfDay,
+  dayStatus,
+  getDay,
+  getPlan,
+  resolveUserTimeZone,
+  todayInTimeZone,
+} from "@/lib/plans";
 
 export const dynamic = "force-dynamic";
 
@@ -32,7 +40,11 @@ export default async function DiaPage({ params }: Props) {
   if (!day) notFound();
 
   const date = dateOfDay(plan, n);
-  const today = todayInTimeZone(config.timezone);
+  const userTz = resolveUserTimeZone(
+    (await cookies()).get("tz")?.value,
+    config.timezone,
+  );
+  const today = todayInTimeZone(userTz);
   if (dayStatus(date, today) === "locked") notFound();
 
   const weekday = weekdayEs(date, config.timezone);

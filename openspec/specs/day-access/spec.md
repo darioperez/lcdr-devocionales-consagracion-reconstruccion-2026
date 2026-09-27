@@ -1,26 +1,30 @@
 # day-access Specification
 
 ## Purpose
-Controls when each devotional day is readable: days unlock at midnight in the plan's timezone, past and present days stay accessible, and future days are locked and unreachable.
+Controls when each devotional day is readable: days unlock at midnight in the visitor's local timezone (falling back to the plan's timezone), past and present days stay accessible, and future days are locked and unreachable.
 
 ## Requirements
 
 ### Requirement: Day unlock schedule
-Each day SHALL unlock at midnight on its date in the plan's timezone and remain accessible afterwards.
+Each day SHALL unlock at midnight on its date in the visitor's local timezone when known, otherwise in the plan's timezone, and remain accessible afterwards.
 
 #### Scenario: Day unlocks on its date
-- **WHEN** the current date in the plan's timezone reaches the day's scheduled date
+- **WHEN** the current date in the visitor's timezone reaches the day's scheduled date
 - **THEN** that day's page is accessible and shown as unlocked
 
+#### Scenario: Unknown visitor timezone falls back to the plan timezone
+- **WHEN** the visitor's timezone is not known or is invalid
+- **THEN** the plan's timezone is used to decide day access
+
 #### Scenario: Day remains accessible after its date
-- **WHEN** the current date in the plan's timezone is after the day's scheduled date
+- **WHEN** the current date in the visitor's timezone is after the day's scheduled date
 - **THEN** that day's page remains accessible
 
 ### Requirement: Future days are locked
 Days whose date is still in the future SHALL be visually locked and their pages SHALL return a 404 response.
 
 #### Scenario: Locked day page returns 404
-- **WHEN** a visitor requests the URL of a day whose date is in the future in the plan's timezone
+- **WHEN** a visitor requests the URL of a day whose date is in the future in the visitor's timezone (or the plan's timezone as fallback)
 - **THEN** the server responds with HTTP 404
 
 #### Scenario: Locked day shown in overview

@@ -4,6 +4,7 @@ import {
   dateOfDay,
   dayStatus,
   planPhase,
+  resolveUserTimeZone,
   todayInTimeZone,
 } from "./plans";
 import type { Plan } from "./plans";
@@ -84,6 +85,27 @@ describe("dateOfDay", () => {
 
   it("crosses month boundaries", () => {
     expect(dateOfDay(plan, 4)).toBe("2026-10-01");
+  });
+});
+
+describe("resolveUserTimeZone", () => {
+  it("falls back when no timezone is provided", () => {
+    expect(resolveUserTimeZone(undefined, "America/Caracas")).toBe(
+      "America/Caracas",
+    );
+  });
+
+  it("canonicalizes a valid IANA timezone", () => {
+    expect(resolveUserTimeZone("America/New_York", "America/Caracas")).toBe(
+      "America/New_York",
+    );
+  });
+
+  it("falls back on invalid timezone names", () => {
+    expect(resolveUserTimeZone("Not/AZone", "America/Caracas")).toBe(
+      "America/Caracas",
+    );
+    expect(resolveUserTimeZone("", "America/Caracas")).toBe("America/Caracas");
   });
 });
 

@@ -1,5 +1,6 @@
 import Countdown from "@/components/countdown";
 import Image from "next/image";
+import { cookies } from "next/headers";
 import ViewLink from "@/components/view-link";
 import { ArrowRightIcon } from "@/components/icons";
 import SubscribeButton from "@/components/subscribe-button";
@@ -8,21 +9,26 @@ import {
   currentDayNumber,
   getPlan,
   planPhase,
+  resolveUserTimeZone,
   todayInTimeZone,
 } from "@/lib/plans";
 
 export const dynamic = "force-dynamic";
 
-export default function Home() {
+export default async function Home() {
   const plan = getPlan();
   const { config } = plan;
-  const today = todayInTimeZone(config.timezone);
+  const userTz = resolveUserTimeZone(
+    (await cookies()).get("tz")?.value,
+    config.timezone,
+  );
+  const today = todayInTimeZone(userTz);
   const phase = planPhase(config.inicio, config.fin, today);
   const currentN = currentDayNumber(plan, today);
 
   const fechaInicio = formatDateEs(config.inicio, config.timezone);
   const fechaFin = formatDateEs(config.fin, config.timezone);
-  const targetStart = `${config.inicio}T00:00:00-04:00`;
+  const targetStart = `${config.inicio}T00:00:00`;
 
   return (
     <div className="rise-in mx-auto w-full max-w-3xl px-6 py-16 sm:py-24">
