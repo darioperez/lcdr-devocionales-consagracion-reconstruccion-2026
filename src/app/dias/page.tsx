@@ -48,6 +48,7 @@ export default function DiasPage() {
                 n={dia.n}
                 titulo={dia.titulo}
                 pasaje={dia.pasaje}
+                imagen={dia.imagen}
                 date={date}
                 locked={dayStatus(date, today) === "locked"}
                 today={dayStatus(date, today) === "open" && date === today}

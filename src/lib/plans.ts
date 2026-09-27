@@ -7,6 +7,7 @@ export interface PlanConfig {
   titulo: string;
   subtitulo: string;
   descripcion: string;
+  portada?: string;
   inicio: string;
   fin: string;
   timezone: string;
@@ -18,6 +19,7 @@ export interface PlanDay {
   n: number;
   titulo: string;
   pasaje: string;
+  imagen?: string;
   contenido: string;
 }
 
@@ -88,6 +90,7 @@ export function getPlan(): Plan {
       n: Number(data.dia),
       titulo: String(data.titulo),
       pasaje: String(data.pasaje),
+      imagen: data.imagen ? String(data.imagen) : undefined,
       contenido: content.trim(),
     } satisfies PlanDay;
   });

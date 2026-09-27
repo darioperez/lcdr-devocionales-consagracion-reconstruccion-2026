@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import Markdown from "@/components/markdown";
 import ViewLink from "@/components/view-link";
@@ -69,6 +70,20 @@ export default async function DiaPage({ params }: Props) {
           {day.pasaje}
         </p>
       </header>
+
+      {day.imagen && (
+        <div className="mt-10 flex justify-center">
+          <Image
+            src={day.imagen}
+            alt={`Portada del día ${n}: ${day.titulo}`}
+            width={1248}
+            height={1872}
+            priority
+            sizes="(min-width: 640px) 384px, min(100vw - 48px, 400px)"
+            className="h-auto w-full max-w-[320px] rounded-2xl border border-line shadow-sm sm:max-w-[384px]"
+          />
+        </div>
+      )}
 
       <div className="mt-10">
         <Markdown content={day.contenido} />

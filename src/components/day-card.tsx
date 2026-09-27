@@ -1,3 +1,4 @@
+import Image from "next/image";
 import ViewLink from "@/components/view-link";
 import { ArrowRightIcon, LockIcon } from "@/components/icons";
 import { formatDateEs } from "@/lib/format";
@@ -11,6 +12,7 @@ interface DayCardProps {
   date: string;
   locked: boolean;
   today: boolean;
+  imagen?: string;
 }
 
 export default function DayCard({
@@ -21,6 +23,7 @@ export default function DayCard({
   date,
   locked,
   today,
+  imagen,
 }: DayCardProps) {
   const fecha = formatDateEs(date, plan.config.timezone);
 
@@ -52,7 +55,7 @@ export default function DayCard({
     >
       <ViewLink
         href={`/dias/${n}`}
-        className="flex items-center gap-4 p-5"
+        className="flex items-center gap-4 p-4 sm:p-5"
         nav={today ? "next" : undefined}
       >
         <span
@@ -62,6 +65,16 @@ export default function DayCard({
         >
           {n}
         </span>
+        {imagen && (
+          <Image
+            src={imagen}
+            alt=""
+            aria-hidden
+            width={1248}
+            height={1872}
+            className="h-14 w-10 shrink-0 rounded-lg border border-line object-cover sm:h-16 sm:w-11"
+          />
+        )}
         <div className="min-w-0 flex-1">
           <p className="flex flex-wrap items-center gap-2 text-xs font-semibold tracking-[0.14em] text-smoke uppercase">
             Día {n} · {fecha}

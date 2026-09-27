@@ -1,4 +1,5 @@
 import Countdown from "@/components/countdown";
+import Image from "next/image";
 import ViewLink from "@/components/view-link";
 import { ArrowRightIcon } from "@/components/icons";
 import SubscribeButton from "@/components/subscribe-button";
@@ -39,6 +40,20 @@ export default function Home() {
         <p className="mt-4 text-xs font-medium tracking-wide text-smoke uppercase">
           {fechaInicio} — {fechaFin}
         </p>
+
+        {config.portada && (
+          <div className="mt-8 flex justify-center">
+            <Image
+              src={config.portada}
+              alt={`Portada de ${config.titulo}`}
+              width={1152}
+              height={2048}
+              priority
+              sizes="(min-width: 640px) 260px, 220px"
+              className="h-auto w-full max-w-[220px] rounded-2xl border border-line shadow-sm sm:max-w-[260px]"
+            />
+          </div>
+        )}
 
         <p className="mt-8 max-w-xl text-lg leading-relaxed text-ink/85">
           {config.descripcion}

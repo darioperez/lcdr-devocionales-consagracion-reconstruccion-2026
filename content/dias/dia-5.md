@@ -2,6 +2,7 @@
 dia: 5
 titulo: Pacto que consagra
 pasaje: Nehemías 10:28-29; 13:14, 22, 31
+imagen: /images/dia-5.png
 ---
 
 ## Reflexión

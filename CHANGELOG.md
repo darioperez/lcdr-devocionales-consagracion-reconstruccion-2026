@@ -2,6 +2,12 @@
 
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y el versionado sigue [SemVer](https://semver.org/lang/es/).
 
+## [0.3.0] - 2026-09-26
+
+### Añadido
+
+- Portadas de los devocionales (`public/images/`): portada de la serie en el hero de la página de inicio, portada de cada día en su página y miniaturas en la lista de días
+
 ## [0.2.1] - 2026-09-26
 
 ### Corregido

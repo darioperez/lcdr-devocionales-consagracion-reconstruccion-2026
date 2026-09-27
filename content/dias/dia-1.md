@@ -2,6 +2,7 @@
 dia: 1
 titulo: Oración que sostiene
 pasaje: Nehemías 1:4-11
+imagen: /images/dia-1.png
 ---
 
 ## Reflexión

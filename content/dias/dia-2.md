@@ -2,6 +2,7 @@
 dia: 2
 titulo: Visión que levanta
 pasaje: Nehemías 2:17-18
+imagen: /images/dia-2.png
 ---
 
 ## Reflexión
