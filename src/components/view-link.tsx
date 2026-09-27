@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import type { AnchorHTMLAttributes, MouseEvent, ReactNode } from "react";
 import { flushSync } from "react-dom";
+import { getNavDirection } from "@/lib/navigation";
 
 interface ViewLinkProps
   extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href" | "onClick"> {
@@ -19,6 +20,7 @@ export default function ViewLink({
   ...rest
 }: ViewLinkProps) {
   const router = useRouter();
+  const pathname = usePathname();
 
   function handleClick(e: MouseEvent<HTMLAnchorElement>) {
     if (
@@ -27,19 +29,27 @@ export default function ViewLink({
       e.metaKey ||
       e.ctrlKey ||
       e.shiftKey ||
-      e.altKey ||
-      typeof document.startViewTransition !== "function"
+      e.altKey
     ) {
       return;
     }
+    if (typeof document.startViewTransition !== "function") {
+      return;
+    }
     e.preventDefault();
-    document.documentElement.dataset.nav = nav ?? "";
-    const transition = document.startViewTransition(() => {
-      flushSync(() => {
-        router.push(href);
+    const direction = nav ?? getNavDirection(pathname, href);
+    document.documentElement.dataset.nav = direction;
+    let transition: ReturnType<typeof document.startViewTransition> | undefined;
+    try {
+      transition = document.startViewTransition(() => {
+        flushSync(() => {
+          router.push(href);
+        });
       });
-    });
-    transition.finished.finally(() => {
+    } catch {
+      router.push(href);
+    }
+    transition?.finished.finally(() => {
       delete document.documentElement.dataset.nav;
     });
   }

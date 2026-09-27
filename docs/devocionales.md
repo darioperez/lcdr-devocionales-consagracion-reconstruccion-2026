@@ -75,4 +75,4 @@ Señor, hoy hago pacto contigo. No quiero una consagración de un solo día, sin
 
 **Cierre de la semana:**  
 Noche de Adoración para Hombres — **«Consagración⇒Reconstrucción»**  
-*Primero de rodillas, luego las manos a la obra.*
+*Primero de rodillas, luego manos a la obra.*

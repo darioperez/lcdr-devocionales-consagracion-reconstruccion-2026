@@ -2,6 +2,19 @@
 
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y el versionado sigue [SemVer](https://semver.org/lang/es/).
 
+## [1.2.0] - 2026-09-27
+
+### Añadido
+
+- Transición de páginas tipo iOS (push/slide) con orientación: avanzar entra desde la derecha empujando la página anterior, volver entra desde la izquierda; la dirección se infiere de la jerarquía de rutas (lista → día, día siguiente, volver a la lista o al inicio)
+- Los clics durante la animación ya no se pierden (`pointer-events: none` en la superposición de view transitions)
+
+## [1.1.1] - 2026-09-27
+
+### Cambiado
+
+- Copia de la serie: «hombres» en lugar de «varones», «Noche de Adoración para Hombres», cita de Nehemías 2:17 (NTV), descripción renovada y nombre de iglesia «Comunidad de Fe · La Casa del Rey»
+
 ## [1.1.0] - 2026-09-27
 
 ### Añadido
