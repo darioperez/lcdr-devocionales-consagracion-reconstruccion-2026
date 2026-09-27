@@ -9,20 +9,23 @@ import {
 } from "@/lib/onesignal";
 import type { SubscribeState } from "@/lib/onesignal";
 
-function initialState(): SubscribeState {
-  if (typeof window === "undefined") return "loading";
-  if (!("serviceWorker" in navigator)) return "unsupported";
-  if (!isOneSignalConfigured()) return "unconfigured";
-  return "loading";
-}
-
 export default function SubscribeButton() {
-  const [state, setState] = useState<SubscribeState>(initialState);
+  const [state, setState] = useState<SubscribeState>("loading");
 
   useEffect(() => {
-    if (state === "unsupported" || state === "unconfigured") return;
-    subscribeToChanges(setState);
-  }, [state]);
+    const raf = requestAnimationFrame(() => {
+      if (!("serviceWorker" in navigator)) {
+        setState("unsupported");
+        return;
+      }
+      if (!isOneSignalConfigured()) {
+        setState("unconfigured");
+        return;
+      }
+      subscribeToChanges(setState);
+    });
+    return () => cancelAnimationFrame(raf);
+  }, []);
 
   const subscribed = state === "subscribed";
 

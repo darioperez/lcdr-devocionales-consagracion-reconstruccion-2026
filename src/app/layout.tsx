@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
+import { cookies } from "next/headers";
 import { Fraunces, Inter } from "next/font/google";
 import Script from "next/script";
+import ThemeToggle from "@/components/theme-toggle";
 import ViewLink from "@/components/view-link";
 import { getPlan } from "@/lib/plans";
 import "./globals.css";
@@ -25,19 +27,31 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#faf8f4",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#faf8f4" },
+    { media: "(prefers-color-scheme: dark)", color: "#181410" },
+  ],
   viewportFit: "cover",
 };
 
 const appId = process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID;
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const plan = getPlan();
+  const cookieStore = await cookies();
+  const theme = cookieStore.get("theme")?.value;
+  const themeClass =
+    theme === "light" || theme === "dark" ? theme : undefined;
 
   return (
-    <html lang="es" className={`${fraunces.variable} ${inter.variable}`}>
+    <html
+      lang="es"
+      className={[fraunces.variable, inter.variable, themeClass]
+        .filter(Boolean)
+        .join(" ")}
+    >
       <body className="flex min-h-dvh flex-col overflow-x-clip antialiased">
         {appId && (
           <>
@@ -79,6 +93,7 @@ OneSignalDeferred.push(async function (OneSignal) {
               >
                 Los 5 días
               </ViewLink>
+              <ThemeToggle />
             </nav>
           </div>
         </header>

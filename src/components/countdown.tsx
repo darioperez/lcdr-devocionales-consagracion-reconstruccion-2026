@@ -16,24 +16,28 @@ function pad(n: number) {
 }
 
 export default function Countdown({ target }: { target: string }) {
-  const [now, setNow] = useState(() => new Date());
+  const [now, setNow] = useState<Date | null>(null);
 
   useEffect(() => {
+    const raf = requestAnimationFrame(() => setNow(new Date()));
     const id = setInterval(() => setNow(new Date()), 1000);
-    return () => clearInterval(id);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearInterval(id);
+    };
   }, []);
 
-  const t = parts(new Date(target), now);
+  const t = now ? parts(new Date(target), now) : null;
 
   return (
     <div className="flex items-center justify-center gap-1.5 sm:gap-2" role="timer">
-      <Unit value={t.days} label={t.days === 1 ? "día" : "días"} />
+      <Unit value={t ? t.days : "–"} label={t && t.days === 1 ? "día" : "días"} />
       <span className="pb-4 text-lg text-smoke sm:pb-5 sm:text-2xl">:</span>
-      <Unit value={pad(t.hours)} label="hrs" />
+      <Unit value={t ? pad(t.hours) : "–"} label="hrs" />
       <span className="pb-4 text-lg text-smoke sm:pb-5 sm:text-2xl">:</span>
-      <Unit value={pad(t.minutes)} label="min" />
+      <Unit value={t ? pad(t.minutes) : "–"} label="min" />
       <span className="pb-4 text-lg text-smoke sm:pb-5 sm:text-2xl">:</span>
-      <Unit value={pad(t.seconds)} label="seg" />
+      <Unit value={t ? pad(t.seconds) : "–"} label="seg" />
     </div>
   );
 }

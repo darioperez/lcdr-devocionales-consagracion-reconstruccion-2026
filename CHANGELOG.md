@@ -2,6 +2,20 @@
 
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y el versionado sigue [SemVer](https://semver.org/lang/es/).
 
+## [0.4.0] - 2026-09-26
+
+### Añadido
+
+- Tema oscuro y claro con paleta cálida (papel/tinta/terracota) mediante variables CSS
+- Tema automático según la preferencia del sistema (media query, sin parpadeo)
+- Toggle de tres estados en la barra superior: sistema → claro → oscuro
+- Persistencia de la elección en cookie, renderizada en el servidor (sin flash ni errores de hidratación)
+- Sincronización del meta `theme-color` con el tema activo
+
+### Corregido
+
+- Error de hidratación de React (#418) en `SubscribeButton` y riesgo en `Countdown`: el estado dependiente del entorno ahora se resuelve después del montaje
+
 ## [0.3.1] - 2026-09-26
 
 ### Cambiado
