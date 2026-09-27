@@ -2,6 +2,12 @@
 
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y el versionado sigue [SemVer](https://semver.org/lang/es/).
 
+## [0.3.1] - 2026-09-26
+
+### Cambiado
+
+- Portadas a ancho completo con relación 2:3, recorte priorizando la parte inferior de la imagen (`object-cover object-bottom`) en la portada de la serie y en cada día
+
 ## [0.3.0] - 2026-09-26
 
 ### Añadido

@@ -42,15 +42,15 @@ export default function Home() {
         </p>
 
         {config.portada && (
-          <div className="mt-8 flex justify-center">
+          <div className="mt-8 w-full">
             <Image
               src={config.portada}
               alt={`Portada de ${config.titulo}`}
               width={1152}
               height={2048}
               priority
-              sizes="(min-width: 640px) 260px, 220px"
-              className="h-auto w-full max-w-[220px] rounded-2xl border border-line shadow-sm sm:max-w-[260px]"
+              sizes="(min-width: 768px) 720px, 100vw"
+              className="aspect-[2/3] w-full rounded-2xl border border-line object-cover object-bottom shadow-sm"
             />
           </div>
         )}

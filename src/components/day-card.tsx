@@ -72,7 +72,7 @@ export default function DayCard({
             aria-hidden
             width={1248}
             height={1872}
-            className="h-14 w-10 shrink-0 rounded-lg border border-line object-cover sm:h-16 sm:w-11"
+            className="h-14 w-10 shrink-0 rounded-lg border border-line object-cover object-bottom sm:h-16 sm:w-11"
           />
         )}
         <div className="min-w-0 flex-1">

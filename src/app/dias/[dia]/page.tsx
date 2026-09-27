@@ -72,15 +72,15 @@ export default async function DiaPage({ params }: Props) {
       </header>
 
       {day.imagen && (
-        <div className="mt-10 flex justify-center">
+        <div className="mt-10">
           <Image
             src={day.imagen}
             alt={`Portada del día ${n}: ${day.titulo}`}
             width={1248}
             height={1872}
             priority
-            sizes="(min-width: 640px) 384px, min(100vw - 48px, 400px)"
-            className="h-auto w-full max-w-[320px] rounded-2xl border border-line shadow-sm sm:max-w-[384px]"
+            sizes="(min-width: 768px) 720px, 100vw"
+            className="aspect-[2/3] w-full rounded-2xl border border-line object-cover object-bottom shadow-sm"
           />
         </div>
       )}
