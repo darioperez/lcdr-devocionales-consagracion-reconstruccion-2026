@@ -1,6 +1,6 @@
 # Consagración⇒Reconstrucción
 
-Sitio web público para el plan devocional de 5 días para varones basado en la historia de Nehemías (lunes 28 de septiembre – viernes 2 de octubre de 2026).
+Sitio web público para el plan devocional de 5 días para hombres basado en la historia de Nehemías (lunes 28 de septiembre – viernes 2 de octubre de 2026).
 
 - **Homepage** (`/`): descripción de la serie, cuenta regresiva y CTA según la fase del plan
 - **Los 5 días** (`/dias`): lista de los días con estados bloqueado / disponible / hoy

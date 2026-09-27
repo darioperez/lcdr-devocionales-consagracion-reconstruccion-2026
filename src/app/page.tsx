@@ -66,10 +66,9 @@ export default async function Home() {
         </p>
 
         <blockquote className="mt-8 max-w-lg border-l-2 border-clay pl-5 text-left font-display text-base text-ink/70 italic">
-          «Venid, y edifiquemos el muro de Jerusalén, y no estemos más en
-          oprobio».
+          «¡Reconstruyamos la muralla de Jerusalén y pongamos fin a esta desgracia!».
           <span className="mt-1 block text-sm font-sans text-smoke not-italic">
-            — Nehemías 2:17
+            — Nehemías 2:17 NTV
           </span>
         </blockquote>
 

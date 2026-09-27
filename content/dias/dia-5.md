@@ -11,7 +11,7 @@ El pueblo no solo escuchó la Palabra; hizo un pacto escrito, sellado y firmado.
 
 ## Acción del día
 
-Escribe un breve pacto personal con Dios. Incluye una o dos áreas donde te comprometes a ser fiel a partir de hoy. Fírmalo con tu nombre y fecha. Llévalo contigo a la Noche de Adoración de Hombres y preséntalo delante de Dios.
+Escribe un breve pacto personal con Dios. Incluye una o dos áreas donde te comprometes a ser fiel a partir de hoy. Fírmalo con tu nombre y fecha. Llévalo contigo a la Noche de Adoración para Hombres y preséntalo delante de Dios.
 
 ## Oración
 

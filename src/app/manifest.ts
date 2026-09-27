@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Consagración⇒Reconstrucción",
     short_name: "Consagración",
     description:
-      "Plan devocional de 5 días para varones basado en la historia de Nehemías",
+      "Plan devocional de 5 días para hombres basado en la historia de Nehemías",
     start_url: "/",
     display: "standalone",
     background_color: "#faf8f4",

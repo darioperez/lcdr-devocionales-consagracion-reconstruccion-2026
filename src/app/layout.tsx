@@ -19,11 +19,11 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Consagración⇒Reconstrucción · Devocional para varones",
+    default: "Consagración⇒Reconstrucción · Devocional para hombres",
     template: "%s · Consagración⇒Reconstrucción",
   },
   description:
-    "Plan devocional de 5 días para varones basado en la historia de Nehemías. Del lunes 28 de septiembre al viernes 2 de octubre. Primero de rodillas, luego con las manos en la obra.",
+    "Plan devocional de 5 días para hombres basado en la historia de Nehemías. Del lunes 28 de septiembre al viernes 2 de octubre. Primero de rodillas, luego las manos a la obra.",
 };
 
 export const viewport: Viewport = {
