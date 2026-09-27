@@ -33,15 +33,18 @@ export type DayStatus = "locked" | "open";
 
 const CONTENT_DIR = path.join(process.cwd(), "content");
 
+const TEMP_UNLOCK_DAY_1_FOR_TESTING = "2026-09-28";
+
 export function todayInTimeZone(timeZone: string, now?: Date): string {
   const override = process.env.FAKE_TODAY;
   if (override) return override;
+  if (!now) return TEMP_UNLOCK_DAY_1_FOR_TESTING;
   return new Intl.DateTimeFormat("en-CA", {
     timeZone,
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
-  }).format(now ?? new Date());
+  }).format(now);
 }
 
 export function resolveUserTimeZone(
