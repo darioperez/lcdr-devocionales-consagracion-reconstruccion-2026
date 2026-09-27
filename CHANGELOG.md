@@ -2,6 +2,12 @@
 
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y el versionado sigue [SemVer](https://semver.org/lang/es/).
 
+## [1.0.0] - 2026-09-26
+
+### Cambiado
+
+- Revertido el desbloqueo temporal del día 1: el acceso vuelve a regirse por las fechas del plan (día 1 se desbloquea el lunes 28 de septiembre a la medianoche, hora de Caracas)
+
 ## [0.4.1] - 2026-09-26
 
 ### Corregido
