@@ -21,6 +21,10 @@ npm run lint
 npm run build
 ```
 
+> Tip: para probar estados de días específicos sin esperar a la fecha real,
+> inicia el server con `FAKE_TODAY=2026-09-30 npm run dev` (solo afecta a
+> `todayInTimeZone`, no a producción).
+
 ## Contenido
 
 Todo el contenido vive en `content/`:

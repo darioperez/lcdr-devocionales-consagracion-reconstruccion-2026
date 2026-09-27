@@ -14,11 +14,10 @@ export const dynamic = "force-dynamic";
 
 export default function Home() {
   const plan = getPlan();
-  const { config, dias } = plan;
+  const { config } = plan;
   const today = todayInTimeZone(config.timezone);
   const phase = planPhase(config.inicio, config.fin, today);
   const currentN = currentDayNumber(plan, today);
-  const currentDay = currentN ? dias.find((d) => d.n === currentN) : undefined;
 
   const fechaInicio = formatDateEs(config.inicio, config.timezone);
   const fechaFin = formatDateEs(config.fin, config.timezone);
@@ -31,10 +30,10 @@ export default function Home() {
           Devocional para varones · 5 días
         </p>
 
-        <h1 className="mt-6 font-display text-5xl font-semibold tracking-tight text-balance sm:text-6xl">
-          Consagración
+        <h1 className="mt-6 flex flex-wrap items-center justify-center gap-x-3 font-display text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
+          <span>Consagración</span>
           <span className="text-clay">⇒</span>
-          Reconstrucción
+          <span>Reconstrucción</span>
         </h1>
 
         <p className="mt-4 text-xs font-medium tracking-wide text-smoke uppercase">
@@ -62,7 +61,7 @@ export default function Home() {
               <Countdown target={targetStart} />
             </>
           )}
-          {phase === "during" && currentDay && (
+          {phase === "during" && currentN && (
             <>
               <p className="mb-5 text-sm font-medium text-smoke">
                 Día {currentN} de 5 · hoy
@@ -83,17 +82,15 @@ export default function Home() {
           )}
         </div>
 
-        <div className="flex flex-col items-center gap-3 sm:flex-row">
+        <div className="flex w-full max-w-md flex-col items-center gap-3 sm:flex-row sm:justify-center">
           <ViewLink
             href={phase === "during" && currentN ? `/dias/${currentN}` : "/dias"}
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-clay px-8 text-base font-semibold text-paper transition-colors hover:bg-clay-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay"
+            className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-clay px-6 text-base font-semibold whitespace-normal text-center text-paper transition-colors hover:bg-clay-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay sm:w-auto"
           >
             {phase === "before" && "Iniciar Plan"}
-            {phase === "during" &&
-              currentDay &&
-              `Continuar · ${currentDay.titulo}`}
+            {phase === "during" && currentN && `Continuar · Día ${currentN}`}
             {phase === "after" && "Ver plan completo"}
-            <ArrowRightIcon className="h-4 w-4" />
+            <ArrowRightIcon className="h-4 w-4 shrink-0" />
           </ViewLink>
         </div>
       </section>

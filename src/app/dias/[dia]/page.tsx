@@ -65,7 +65,7 @@ export default async function DiaPage({ params }: Props) {
         <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
           {day.titulo}
         </h1>
-        <p className="mt-3 inline-block rounded-lg border border-line bg-cream px-3 py-1.5 font-display text-base text-ink/80">
+        <p className="mt-3 inline-block max-w-full rounded-lg border border-line bg-cream px-3 py-1.5 font-display text-base break-words text-ink/80">
           {day.pasaje}
         </p>
       </header>
@@ -93,7 +93,7 @@ export default async function DiaPage({ params }: Props) {
           <ViewLink
             href={`/dias/${prev}`}
             nav="back"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-smoke transition-colors hover:text-ink"
+            className="inline-flex h-11 items-center gap-1.5 text-sm font-medium text-smoke transition-colors hover:text-ink"
           >
             <ArrowLeftIcon className="h-4 w-4" />
             Día {prev}
@@ -108,7 +108,7 @@ export default async function DiaPage({ params }: Props) {
           <ViewLink
             href={`/dias/${next}`}
             nav="next"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-smoke transition-colors hover:text-ink"
+            className="inline-flex h-11 items-center gap-1.5 text-sm font-medium text-smoke transition-colors hover:text-ink"
           >
             Día {next}
             <ArrowRightIcon className="h-4 w-4" />

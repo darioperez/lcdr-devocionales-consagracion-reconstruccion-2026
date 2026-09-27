@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Fraunces, Inter } from "next/font/google";
 import Script from "next/script";
 import ViewLink from "@/components/view-link";
@@ -24,6 +24,11 @@ export const metadata: Metadata = {
     "Plan devocional de 5 días para varones basado en la historia de Nehemías. Del lunes 28 de septiembre al viernes 2 de octubre. Primero de rodillas, luego con las manos en la obra.",
 };
 
+export const viewport: Viewport = {
+  themeColor: "#faf8f4",
+  viewportFit: "cover",
+};
+
 const appId = process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID;
 
 export default function RootLayout({
@@ -33,7 +38,7 @@ export default function RootLayout({
 
   return (
     <html lang="es" className={`${fraunces.variable} ${inter.variable}`}>
-      <body className="flex min-h-screen flex-col antialiased">
+      <body className="flex min-h-dvh flex-col overflow-x-clip antialiased">
         {appId && (
           <>
             <Script
@@ -53,21 +58,24 @@ OneSignalDeferred.push(async function (OneSignal) {
           </>
         )}
 
-        <header className="border-b border-line">
-          <div className="mx-auto flex h-16 w-full max-w-3xl items-center justify-between px-6">
-            <ViewLink href="/" className="font-display text-lg font-semibold tracking-tight">
+        <header className="border-b border-line pt-[env(safe-area-inset-top)]">
+          <div className="mx-auto flex h-16 w-full max-w-3xl items-center justify-between gap-3 px-4 sm:px-6">
+            <ViewLink
+              href="/"
+              className="min-w-0 truncate font-display text-base font-semibold tracking-tight sm:text-lg"
+            >
               {plan.config.titulo}
             </ViewLink>
-            <nav className="flex items-center gap-1 text-sm">
+            <nav className="flex shrink-0 items-center gap-0.5 text-sm sm:gap-1">
               <ViewLink
                 href="/"
-                className="rounded-full px-3 py-1.5 text-smoke transition-colors hover:bg-cream hover:text-ink"
+                className="hidden rounded-full px-2.5 py-1.5 text-smoke transition-colors hover:bg-cream hover:text-ink sm:inline-block sm:px-3"
               >
                 Inicio
               </ViewLink>
               <ViewLink
                 href="/dias"
-                className="rounded-full px-3 py-1.5 text-smoke transition-colors hover:bg-cream hover:text-ink"
+                className="rounded-full px-2.5 py-1.5 text-smoke transition-colors hover:bg-cream hover:text-ink sm:px-3"
               >
                 Los 5 días
               </ViewLink>
@@ -77,7 +85,7 @@ OneSignalDeferred.push(async function (OneSignal) {
 
         <main className="flex-1">{children}</main>
 
-        <footer className="border-t border-line">
+        <footer className="border-t border-line pb-[env(safe-area-inset-bottom)]">
           <div className="mx-auto flex w-full max-w-3xl flex-col items-center gap-1 px-6 py-10 text-center">
             <p className="font-display text-sm font-semibold">
               {plan.config.titulo}

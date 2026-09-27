@@ -2,6 +2,17 @@
 
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y el versionado sigue [SemVer](https://semver.org/lang/es/).
 
+## [0.2.1] - 2026-09-26
+
+### Corregido
+
+- Desbordamiento horizontal del título del hero en móviles y tablets (h1 ahora usa flex-wrap)
+- Header: truncado del wordmark y navegación compacta en pantallas pequeñas
+- Cuenta regresiva: tamaños responsivos para pantallas de 320 px
+- CTA del hero: ancho completo en móvil y texto que ya no se desborda
+- Áreas seguras (`safe-area-inset`) y `min-h-dvh` para PWA en iOS
+- Objetivos táctiles de 44 px en la navegación anterior/siguiente del día
+
 ## [0.2.0] - 2026-09-26
 
 ### Añadido
