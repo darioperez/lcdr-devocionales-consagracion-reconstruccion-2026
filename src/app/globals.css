@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #faf8f4;
+  --color-cream: #f3eee5;
+  --color-ink: #1c1917;
+  --color-smoke: #78716c;
+  --color-line: #e7dfd1;
+  --color-clay: #c2410c;
+  --color-clay-deep: #9a3412;
+  --color-clay-soft: #fbe9dd;
+
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background-color: var(--color-clay);
+  color: var(--color-paper);
+}
+
+/* ---------- Page transitions (View Transitions API) ---------- */
+
+@keyframes vt-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes vt-slide-left {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes vt-slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+::view-transition-old(root) {
+  animation: 160ms ease-in vt-fade-out both;
+}
+
+::view-transition-new(root) {
+  animation: 280ms cubic-bezier(0.22, 1, 0.36, 1) vt-fade-up both;
+}
+
+html[data-nav="next"]::view-transition-old(root) {
+  animation: 160ms ease-in vt-fade-out both;
+}
+
+html[data-nav="next"]::view-transition-new(root) {
+  animation: 300ms cubic-bezier(0.22, 1, 0.36, 1) vt-slide-left both;
+}
+
+html[data-nav="back"]::view-transition-old(root) {
+  animation: 160ms ease-in vt-fade-out both;
+}
+
+html[data-nav="back"]::view-transition-new(root) {
+  animation: 300ms cubic-bezier(0.22, 1, 0.36, 1) vt-slide-right both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
+
+/* ---------- Subtle entrance for first paint ---------- */
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise-in {
+  animation: 380ms cubic-bezier(0.22, 1, 0.36, 1) rise-in both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise-in {
+    animation: none;
+  }
+}
