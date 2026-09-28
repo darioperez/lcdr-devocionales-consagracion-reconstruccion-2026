@@ -52,8 +52,8 @@ export default async function Home() {
             <Image
               src={config.portada}
               alt={`Portada de ${config.titulo}`}
-              width={1152}
-              height={2048}
+              width={1080}
+              height={1440}
               priority
               sizes="(min-width: 768px) 720px, 100vw"
               className="aspect-[2/3] w-full rounded-2xl border border-line object-cover object-bottom shadow-sm"

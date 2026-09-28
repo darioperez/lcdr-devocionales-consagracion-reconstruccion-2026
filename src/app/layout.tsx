@@ -41,9 +41,9 @@ export const metadata: Metadata = {
     siteName: "Consagración⇒Reconstrucción",
     images: [
       {
-        url: "/images/portada.png",
-        width: 1152,
-        height: 2048,
+        url: "/images/portada.jpeg",
+        width: 1080,
+        height: 1440,
         alt: "Portada de Consagración⇒Reconstrucción",
       },
     ],
