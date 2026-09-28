@@ -25,7 +25,36 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { dia } = await params;
   const plan = getPlan();
   const day = getDay(plan, Number(dia));
-  return { title: day ? `Día ${day.n} · ${day.titulo}` : "Día no encontrado" };
+  if (!day) return { title: "Día no encontrado" };
+
+  const title = `Día ${day.n} · ${day.titulo}`;
+  const description = `${day.titulo} · ${day.pasaje} · Devocional para hombres basado en Nehemías`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title: `${title} · Consagración⇒Reconstrucción`,
+      description,
+      type: "article",
+      images: day.imagen
+        ? [
+            {
+              url: day.imagen,
+              width: 1248,
+              height: 1872,
+              alt: `Portada del día ${day.n}: ${day.titulo}`,
+            },
+          ]
+        : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: day.imagen ? [day.imagen] : undefined,
+    },
+  };
 }
 
 export default async function DiaPage({ params }: Props) {
@@ -47,8 +76,8 @@ export default async function DiaPage({ params }: Props) {
   const today = todayInTimeZone(userTz);
   if (dayStatus(date, today) === "locked") notFound();
 
-  const weekday = weekdayEs(date, config.timezone);
-  const fecha = formatDateEs(date, config.timezone);
+  const weekday = weekdayEs(date);
+  const fecha = formatDateEs(date);
   const isLastDay = n === dias.length;
   const prev = n > 1 ? n - 1 : null;
   const next = n < dias.length ? n + 1 : null;

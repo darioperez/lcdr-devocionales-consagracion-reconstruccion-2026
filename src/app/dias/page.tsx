@@ -26,8 +26,8 @@ export default async function DiasPage() {
   );
   const today = todayInTimeZone(userTz);
 
-  const fechaInicio = formatDateEs(config.inicio, config.timezone);
-  const fechaFin = formatDateEs(config.fin, config.timezone);
+  const fechaInicio = formatDateEs(config.inicio);
+  const fechaFin = formatDateEs(config.fin);
 
   return (
     <div className="rise-in mx-auto w-full max-w-3xl px-6 py-14 sm:py-20">
@@ -55,7 +55,6 @@ export default async function DiasPage() {
             return (
               <DayCard
                 key={dia.n}
-                plan={plan}
                 n={dia.n}
                 titulo={dia.titulo}
                 pasaje={dia.pasaje}

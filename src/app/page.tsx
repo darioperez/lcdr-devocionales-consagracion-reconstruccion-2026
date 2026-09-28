@@ -26,8 +26,8 @@ export default async function Home() {
   const phase = planPhase(config.inicio, config.fin, today);
   const currentN = currentDayNumber(plan, today);
 
-  const fechaInicio = formatDateEs(config.inicio, config.timezone);
-  const fechaFin = formatDateEs(config.fin, config.timezone);
+  const fechaInicio = formatDateEs(config.inicio);
+  const fechaFin = formatDateEs(config.fin);
   const targetStart = `${config.inicio}T00:00:00`;
 
   return (

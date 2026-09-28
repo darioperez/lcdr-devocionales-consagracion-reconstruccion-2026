@@ -1,7 +1,8 @@
-export function formatDateEs(dateStr: string, timeZone: string): string {
-  const date = new Date(`${dateStr}T00:00:00Z`);
+export function formatDateEs(dateStr: string): string {
+  const [year, month, day] = dateStr.split("-").map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day));
   const s = new Intl.DateTimeFormat("es-ES", {
-    timeZone,
+    timeZone: "UTC",
     weekday: "long",
     day: "numeric",
     month: "long",
@@ -9,10 +10,11 @@ export function formatDateEs(dateStr: string, timeZone: string): string {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
-export function weekdayEs(dateStr: string, timeZone: string): string {
-  const date = new Date(`${dateStr}T00:00:00Z`);
+export function weekdayEs(dateStr: string): string {
+  const [year, month, day] = dateStr.split("-").map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day));
   const s = new Intl.DateTimeFormat("es-ES", {
-    timeZone,
+    timeZone: "UTC",
     weekday: "long",
   }).format(date);
   return s.charAt(0).toUpperCase() + s.slice(1);

@@ -2,6 +2,16 @@
 
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y el versionado sigue [SemVer](https://semver.org/lang/es/).
 
+## [1.3.0] - 2026-09-27
+
+### Añadido
+
+- Previsualización de enlaces (Open Graph/Twitter) con la portada de cada día al compartir en WhatsApp y otras redes; la página de inicio comparte la portada de la serie (`metadataBase` configurado vía `NEXT_PUBLIC_SITE_URL`)
+
+### Corregido
+
+- Fechas mostradas un día antes (ej. «Día 1 · Domingo»): el formateo ahora trata las fechas como etiquetas de calendario en UTC en lugar de convertirlas a la zona horaria del plan
+
 ## [1.2.0] - 2026-09-27
 
 ### Añadido

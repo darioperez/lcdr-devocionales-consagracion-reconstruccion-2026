@@ -17,13 +17,42 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "https://lcdr-consagracion-reconstruccion.vercel.app");
+
+const defaultDescription =
+  "Plan devocional de 5 días para hombres basado en la historia de Nehemías. Del lunes 28 de septiembre al viernes 2 de octubre. Primero de rodillas, luego las manos a la obra.";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     default: "Consagración⇒Reconstrucción · Devocional para hombres",
     template: "%s · Consagración⇒Reconstrucción",
   },
-  description:
-    "Plan devocional de 5 días para hombres basado en la historia de Nehemías. Del lunes 28 de septiembre al viernes 2 de octubre. Primero de rodillas, luego las manos a la obra.",
+  description: defaultDescription,
+  openGraph: {
+    title: "Consagración⇒Reconstrucción · Devocional para hombres",
+    description: defaultDescription,
+    type: "website",
+    locale: "es_ES",
+    siteName: "Consagración⇒Reconstrucción",
+    images: [
+      {
+        url: "/images/portada.png",
+        width: 1152,
+        height: 2048,
+        alt: "Portada de Consagración⇒Reconstrucción",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Consagración⇒Reconstrucción · Devocional para hombres",
+    description: defaultDescription,
+  },
 };
 
 export const viewport: Viewport = {

@@ -2,10 +2,8 @@ import Image from "next/image";
 import ViewLink from "@/components/view-link";
 import { ArrowRightIcon, LockIcon } from "@/components/icons";
 import { formatDateEs } from "@/lib/format";
-import type { Plan } from "@/lib/plans";
 
 interface DayCardProps {
-  plan: Plan;
   n: number;
   titulo: string;
   pasaje: string;
@@ -16,7 +14,6 @@ interface DayCardProps {
 }
 
 export default function DayCard({
-  plan,
   n,
   titulo,
   pasaje,
@@ -25,7 +22,7 @@ export default function DayCard({
   today,
   imagen,
 }: DayCardProps) {
-  const fecha = formatDateEs(date, plan.config.timezone);
+  const fecha = formatDateEs(date);
 
   if (locked) {
     return (

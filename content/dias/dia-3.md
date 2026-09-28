@@ -2,7 +2,7 @@
 dia: 3
 titulo: Manos que edifican
 pasaje: Nehemías 4:6; 6:15-16
-imagen: /images/dia-3.png
+imagen: /images/dia-3.jpeg
 ---
 
 ## Reflexión

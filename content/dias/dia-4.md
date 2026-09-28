@@ -2,7 +2,7 @@
 dia: 4
 titulo: Palabra que aviva
 pasaje: Nehemías 8:1-8
-imagen: /images/dia-4.png
+imagen: /images/dia-4.jpeg
 ---
 
 ## Reflexión
