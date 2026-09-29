@@ -7,7 +7,7 @@ imagen: /images/dia-2.jpeg
 
 ## Reflexión
 
-Nehemías no se quedó lamentando las ruinas. Se levantó, inspeccionó, y luego llamó a los demás: «Venid, y edifiquemos». La consagración no es pasividad ni queja; es visión que mueve a la acción. Un varón consagrado no solo ve el problema: ve lo que Dios puede hacer con el problema. Y cuando comparte esa visión, otros se levantan con él. La reconstrucción empieza cuando alguien decide levantarse y decir: «Vamos a edificarlo».
+A pesar de que el panorama parecía desesperanzador Nehemías no se quedó lamentando las ruinas. Se levantó, inspeccionó, y luego llamó a los demás: «Venid, y edifiquemos». La consagración no es pasividad ni queja; es visión que mueve a la acción. Un varón consagrado no solo ve el problema: ve lo que Dios puede hacer con el problema. Y cuando comparte esa visión, otros se levantan con él. La reconstrucción empieza cuando alguien decide levantarse y decir: «Reconstruyamos... ¡Pongamos fin a esta desgracia!».
 
 ## Acción del día
 
