@@ -38,7 +38,7 @@ const components: {
     <a className="font-medium text-clay underline underline-offset-4" {...props} />
   ),
   blockquote: ({ children }) => (
-    <blockquote className="mb-5 border-l-2 border-clay pl-4 text-ink/70 italic">
+    <blockquote className="mb-5 border-l-2 border-clay pl-4 text-ink/80 italic">
       {children}
     </blockquote>
   ),

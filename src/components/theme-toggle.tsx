@@ -22,13 +22,27 @@ function getCurrentTheme(): Theme {
 }
 
 function updateThemeColorMeta(theme: Theme): void {
-  const isDark =
-    theme === "dark" ||
-    (theme === "system" &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches);
-  document
-    .querySelectorAll('meta[name="theme-color"]')
-    .forEach((meta) => meta.setAttribute("content", THEME_COLORS[isDark ? "dark" : "light"]));
+  const lightMeta = document.querySelector<HTMLMetaElement>(
+    'meta[name="theme-color"][media*="prefers-color-scheme: light"]',
+  );
+  const darkMeta = document.querySelector<HTMLMetaElement>(
+    'meta[name="theme-color"][media*="prefers-color-scheme: dark"]',
+  );
+  if (!lightMeta && !darkMeta) return;
+
+  const set = (meta: HTMLMetaElement | null, color: string) =>
+    meta?.setAttribute("content", color);
+
+  if (theme === "light") {
+    set(lightMeta, THEME_COLORS.light);
+    set(darkMeta, THEME_COLORS.light);
+  } else if (theme === "dark") {
+    set(lightMeta, THEME_COLORS.dark);
+    set(darkMeta, THEME_COLORS.dark);
+  } else {
+    set(lightMeta, THEME_COLORS.light);
+    set(darkMeta, THEME_COLORS.dark);
+  }
 }
 
 export function applyTheme(theme: Theme): void {

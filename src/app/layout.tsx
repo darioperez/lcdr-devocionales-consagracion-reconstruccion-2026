@@ -1,9 +1,11 @@
 import type { Metadata, Viewport } from "next";
+import { Suspense } from "react";
 import { cookies } from "next/headers";
 import { Fraunces, Inter } from "next/font/google";
 import Script from "next/script";
 import Analytics from "@/components/analytics";
 import BrandLogo from "@/components/brand-logo";
+import NavLink from "@/components/nav-link";
 import ThemeToggle from "@/components/theme-toggle";
 import ViewLink from "@/components/view-link";
 import { getPlan } from "@/lib/plans";
@@ -95,6 +97,12 @@ export default async function RootLayout({
     >
       <body className="flex min-h-dvh flex-col overflow-x-clip antialiased">
         <script dangerouslySetInnerHTML={{ __html: tzInitScript }} />
+        <a
+          href="#contenido"
+          className="sr-only rounded-full bg-clay px-4 py-2 text-sm font-semibold text-paper focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60]"
+        >
+          Saltar al contenido
+        </a>
         {umamiId && (
           <>
             <Script
@@ -102,7 +110,9 @@ export default async function RootLayout({
               data-website-id={umamiId}
               strategy="afterInteractive"
             />
-            <Analytics />
+            <Suspense fallback={null}>
+              <Analytics />
+            </Suspense>
           </>
         )}
         {appId && (
@@ -128,7 +138,7 @@ OneSignalDeferred.push(async function (OneSignal) {
           <div className="mx-auto flex h-16 w-full max-w-3xl items-center justify-between gap-3 px-4 sm:px-6">
             <ViewLink
               href="/"
-              className="flex min-w-0 items-center gap-2.5"
+              className="flex min-w-0 items-center gap-2.5 rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay"
             >
               <BrandLogo className="h-8 w-auto" />
               <span className="min-w-0 truncate font-display text-base font-semibold tracking-tight sm:text-lg">
@@ -136,18 +146,13 @@ OneSignalDeferred.push(async function (OneSignal) {
               </span>
             </ViewLink>
             <nav className="flex shrink-0 items-center gap-0.5 text-sm sm:gap-1">
-              <ViewLink
-                href="/dias"
-                className="rounded-full px-2.5 py-1.5 text-smoke transition-colors hover:bg-cream hover:text-ink sm:px-3"
-              >
-                Plan
-              </ViewLink>
+              <NavLink href="/dias">Plan</NavLink>
               <ThemeToggle />
             </nav>
           </div>
         </header>
 
-        <main className="flex-1">{children}</main>
+        <main id="contenido" className="flex-1">{children}</main>
 
         <footer className="border-t border-line pb-[env(safe-area-inset-bottom)]">
           <div className="mx-auto flex w-full max-w-3xl flex-col items-center gap-1 px-6 py-10 text-center">
@@ -156,7 +161,7 @@ OneSignalDeferred.push(async function (OneSignal) {
               {plan.config.titulo}
             </p>
             <p className="text-xs text-smoke">{plan.config.iglesia.linea}</p>
-            <p className="mt-2 text-xs text-smoke/80">
+            <p className="mt-2 text-xs text-smoke">
               {plan.config.iglesia.nombre} · Hecho para hombres que se arrodillan
               antes de dar cualquier paso
             </p>

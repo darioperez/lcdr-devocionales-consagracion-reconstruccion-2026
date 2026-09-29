@@ -1,6 +1,7 @@
 import Countdown from "@/components/countdown";
 import CtaButton from "@/components/cta-button";
 import Image from "next/image";
+import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import SubscribeButton from "@/components/subscribe-button";
 import { formatDateEs } from "@/lib/format";
@@ -13,6 +14,10 @@ import {
 } from "@/lib/plans";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default async function Home() {
   const plan = getPlan();
@@ -36,7 +41,10 @@ export default async function Home() {
           Serie Devocional
         </p>
 
-        <h1 className="mt-6 flex flex-wrap items-center justify-center gap-x-3 font-display text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
+        <h1
+          tabIndex={-1}
+          className="mt-6 flex flex-wrap items-center justify-center gap-x-3 font-display text-4xl font-semibold tracking-tight text-balance outline-none sm:text-6xl"
+        >
           <span>Consagración</span>
           <span className="text-clay">⇒</span>
           <span>Reconstrucción</span>
@@ -60,11 +68,11 @@ export default async function Home() {
           </div>
         )}
 
-        <p className="mt-8 max-w-xl text-lg leading-relaxed text-ink/85">
+        <p className="mt-8 max-w-xl text-lg leading-relaxed text-ink/90">
           {config.descripcion}
         </p>
 
-        <blockquote className="mt-8 max-w-lg border-l-2 border-clay pl-5 text-left font-display text-base text-ink/70 italic">
+        <blockquote className="mt-8 max-w-lg border-l-2 border-clay pl-5 text-left font-display text-base text-ink/80 italic">
           «¡Reconstruyamos la muralla de Jerusalén y pongamos fin a esta desgracia!».
           <span className="mt-1 block text-sm font-sans text-smoke not-italic">
             — Nehemías 2:17 NTV

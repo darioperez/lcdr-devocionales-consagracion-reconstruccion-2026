@@ -35,7 +35,10 @@ const CONTENT_DIR = path.join(process.cwd(), "content");
 
 export function todayInTimeZone(timeZone: string, now?: Date): string {
   const override = process.env.FAKE_TODAY;
-  if (override) return override;
+  const allowOverride =
+    process.env.NODE_ENV !== "production" ||
+    process.env.ALLOW_FAKE_TODAY === "1";
+  if (override && allowOverride) return override;
   return new Intl.DateTimeFormat("en-CA", {
     timeZone,
     year: "numeric",

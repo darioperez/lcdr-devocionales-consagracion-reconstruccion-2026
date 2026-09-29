@@ -16,14 +16,16 @@ Next.js 16 (App Router) · TypeScript · Tailwind CSS v4 · `gray-matter` + `rea
 ```bash
 npm install
 npm run dev        # http://localhost:3000
-npm run test       # pruebas de lógica de fechas
+npm run test       # pruebas unitarias (lógica de fechas, navegación, formato)
+npm run test:e2e   # pruebas end-to-end con Playwright (requiere build previo)
 npm run lint
 npm run build
 ```
 
 > Tip: para probar estados de días específicos sin esperar a la fecha real,
-> inicia el server con `FAKE_TODAY=2026-09-30 npm run dev` (solo afecta a
-> `todayInTimeZone`, no a producción).
+> inicia el server con `FAKE_TODAY=2026-09-30 npm run dev`. En producción
+> `FAKE_TODAY` se ignora salvo que `ALLOW_FAKE_TODAY=1` (usado por las
+> pruebas e2e).
 
 ## Contenido
 
@@ -52,7 +54,7 @@ npm run reminders -- --send  # programa los 5 envíos
 npm run reminders -- --send --days=3,4,5  # solo algunos días
 ```
 
-Cada recordatorio se entrega a las **8:00 PM en la zona horaria local del suscriptor** (anclado a mediodía UTC de su fecha para evitar entregas un día antes) y abre la página del día con `?origen=notificacion`.
+Cada recordatorio se entrega a las **8:00 PM en la zona horaria local del suscriptor** (anclado a mediodía UTC de su fecha para evitar entregas un día antes) y abre la página del día con `?origen=notificacion`. El script es idempotente: omite los días que ya tienen un recordatorio activo, y lee los títulos directamente de `content/dias/*.md`.
 
 ### Notas del plan gratuito de OneSignal
 

@@ -54,6 +54,8 @@ export default function ViewLink({
     }
     transition?.finished.finally(() => {
       delete document.documentElement.dataset.nav;
+      const heading = document.querySelector<HTMLElement>("main h1");
+      heading?.focus({ preventScroll: true });
     });
   }
 

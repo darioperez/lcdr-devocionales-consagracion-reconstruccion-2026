@@ -14,7 +14,8 @@ import {
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Los 5 días",
+  title: "Plan",
+  alternates: { canonical: "/dias" },
 };
 
 export default async function DiasPage() {
@@ -35,8 +36,11 @@ export default async function DiasPage() {
         <p className="text-xs font-semibold tracking-[0.14em] text-clay-deep uppercase">
           Consagración⇒Reconstrucción
         </p>
-        <h1 className="mt-2 font-display text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
-          Los 5 días
+        <h1
+          tabIndex={-1}
+          className="mt-2 font-display text-4xl font-semibold tracking-tight text-balance outline-none sm:text-5xl"
+        >
+          Plan
         </h1>
         <p className="mt-3 max-w-xl leading-relaxed text-smoke">
           {fechaInicio} — {fechaFin}. Cada día se desbloquea en la mañana de su
@@ -75,8 +79,27 @@ export default async function DiasPage() {
         <h2 className="mt-2 font-display text-2xl font-semibold">
           {config.cierre.titulo}
         </h2>
-        <p className="mt-2 leading-relaxed text-ink/80">{config.cierre.detalle}</p>
+        <p className="mt-2 leading-relaxed text-ink/90">{config.cierre.detalle}</p>
       </section>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Event",
+            name: config.cierre.titulo,
+            description: config.cierre.detalle,
+            startDate: config.fin,
+            eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+            eventStatus: "https://schema.org/EventScheduled",
+            organizer: {
+              "@type": "Organization",
+              name: config.iglesia.nombre,
+            },
+          }),
+        }}
+      />
     </div>
   );
 }

@@ -2,6 +2,40 @@
 
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y el versionado sigue [SemVer](https://semver.org/lang/es/).
 
+## [1.6.0] - 2026-09-29
+
+### Añadido
+
+- Accesibilidad: enlace «Saltar al contenido», `focus-visible` en enlaces de navegación, `aria-current` en el enlace activo, foco automático en el `h1` tras cada navegación y contraste AA corregido en textos atenuados
+- SEO: `sitemap.xml`, `robots.txt`, URLs canónicas y datos estructurados JSON-LD (Evento del cierre y BreadcrumbList por día)
+- Suite e2e con Playwright (14 pruebas, desktop + móvil) integrada al CI de GitHub Actions
+- El 404 de días bloqueados muestra la fecha de desbloqueo
+- React Compiler habilitado (`reactCompiler: true`)
+
+### Corregido
+
+- Meta `theme-color`: al volver a «sistema» se restaura el comportamiento por `prefers-color-scheme` de cada meta (antes quedaba fijo en el último color forzado)
+- `FAKE_TODAY` ya no puede congelar fechas en producción (opte-in explícito con `ALLOW_FAKE_TODAY=1`)
+- `scripts/schedule-reminders.mjs`: títulos leídos desde el contenido (sin duplicación), idempotente (omite días ya programados) y con manejo de errores
+- `Analytics` envuelto en `Suspense` (evita fallo si una página pasara a ser estática)
+
+### Cambiado
+
+- Nomenclatura unificada: la página del plan se llama «Plan» (nav, título, breadcrumbs y enlaces de vuelta)
+- Etiqueta inerte «Día 1» eliminada de la navegación del primer día
+
+## [1.5.2] - 2026-09-29
+
+### Cambiado
+
+- Logo LCDR con variante por tema: `logo-lcdr--light.png` en esquema claro y `logo-lcdr--dark.png` en oscuro (componente `BrandLogo`, header y footer)
+
+## [1.5.1] - 2026-09-29
+
+### Añadido
+
+- Logo de LCDR en la barra superior (junto al wordmark) y en el pie de página
+
 ## [1.5.0] - 2026-09-28
 
 ### Añadido

@@ -35,6 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title,
     description,
+    alternates: { canonical: `/dias/${day.n}` },
     openGraph: {
       title: `${title} · Consagración⇒Reconstrucción`,
       description,
@@ -88,14 +89,33 @@ export default async function DiaPage({ params }: Props) {
     <article className="rise-in mx-auto w-full max-w-3xl px-6 py-14 sm:py-20">
       <DayOpenedEvent dia={n} />
       <ScrollDepth dia={n} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Inicio", item: "/" },
+              { "@type": "ListItem", position: 2, name: "Plan", item: "/dias" },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: day.titulo,
+                item: `/dias/${n}`,
+              },
+            ],
+          }),
+        }}
+      />
       <nav className="mb-10">
         <ViewLink
           href="/dias"
           nav="back"
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-smoke transition-colors hover:text-ink"
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-smoke transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay"
         >
           <ArrowLeftIcon className="h-4 w-4" />
-          Los 5 días
+          Plan
         </ViewLink>
       </nav>
 
@@ -108,10 +128,13 @@ export default async function DiaPage({ params }: Props) {
             {fecha}
           </p>
         </div>
-        <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
+        <h1
+          tabIndex={-1}
+          className="mt-4 font-display text-4xl font-semibold tracking-tight text-balance outline-none sm:text-5xl"
+        >
           {day.titulo}
         </h1>
-        <p className="mt-3 inline-block max-w-full rounded-lg border border-line bg-cream px-3 py-1.5 font-display text-base break-words text-ink/80">
+        <p className="mt-3 inline-block max-w-full rounded-lg border border-line bg-cream px-3 py-1.5 font-display text-base break-words text-ink/90">
           {day.pasaje}
         </p>
       </header>
@@ -142,7 +165,7 @@ export default async function DiaPage({ params }: Props) {
           <h2 className="mt-2 font-display text-xl font-semibold">
             {config.cierre.titulo}
           </h2>
-          <p className="mt-2 text-sm leading-relaxed text-ink/80">
+          <p className="mt-2 text-sm leading-relaxed text-ink/90">
             {config.cierre.detalle}
           </p>
         </aside>
@@ -153,22 +176,22 @@ export default async function DiaPage({ params }: Props) {
           <ViewLink
             href={`/dias/${prev}`}
             nav="back"
-            className="inline-flex h-11 items-center gap-1.5 text-sm font-medium text-smoke transition-colors hover:text-ink"
+            className="inline-flex h-11 items-center gap-1.5 text-sm font-medium text-smoke transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay"
           >
             <ArrowLeftIcon className="h-4 w-4" />
             Día {prev}
           </ViewLink>
         ) : (
-          <span className="text-sm text-smoke/50">Día 1</span>
+          <span aria-hidden="true" className="h-11" />
         )}
-        <span className="hidden text-xs text-smoke/60 sm:block">
+        <span className="hidden text-xs text-smoke sm:block">
           {weekday}
         </span>
         {next ? (
           <ViewLink
             href={`/dias/${next}`}
             nav="next"
-            className="inline-flex h-11 items-center gap-1.5 text-sm font-medium text-smoke transition-colors hover:text-ink"
+            className="inline-flex h-11 items-center gap-1.5 text-sm font-medium text-smoke transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay"
           >
             Día {next}
             <ArrowRightIcon className="h-4 w-4" />
