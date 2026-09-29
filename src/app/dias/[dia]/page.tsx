@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import DayOpenedEvent from "@/components/day-opened-event";
 import Markdown from "@/components/markdown";
+import ScrollDepth from "@/components/scroll-depth";
 import ViewLink from "@/components/view-link";
 import { ArrowLeftIcon, ArrowRightIcon } from "@/components/icons";
 import { formatDateEs, weekdayEs } from "@/lib/format";
@@ -86,6 +87,7 @@ export default async function DiaPage({ params }: Props) {
   return (
     <article className="rise-in mx-auto w-full max-w-3xl px-6 py-14 sm:py-20">
       <DayOpenedEvent dia={n} />
+      <ScrollDepth dia={n} />
       <nav className="mb-10">
         <ViewLink
           href="/dias"

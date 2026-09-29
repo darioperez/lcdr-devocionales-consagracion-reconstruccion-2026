@@ -1,8 +1,7 @@
 import Countdown from "@/components/countdown";
+import CtaButton from "@/components/cta-button";
 import Image from "next/image";
 import { cookies } from "next/headers";
-import ViewLink from "@/components/view-link";
-import { ArrowRightIcon } from "@/components/icons";
 import SubscribeButton from "@/components/subscribe-button";
 import { formatDateEs } from "@/lib/format";
 import {
@@ -103,15 +102,17 @@ export default async function Home() {
         </div>
 
         <div className="flex w-full max-w-md flex-col items-center gap-3 sm:flex-row sm:justify-center">
-          <ViewLink
+          <CtaButton
             href={phase === "during" && currentN ? `/dias/${currentN}` : "/dias"}
-            className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-clay px-6 text-base font-semibold whitespace-normal text-center text-paper transition-colors hover:bg-clay-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay sm:w-auto"
-          >
-            {phase === "before" && "Iniciar Plan"}
-            {phase === "during" && currentN && `Continuar · Día ${currentN}`}
-            {phase === "after" && "Ver plan completo"}
-            <ArrowRightIcon className="h-4 w-4 shrink-0" />
-          </ViewLink>
+            fase={phase}
+            label={
+              (phase === "before" && "Iniciar Plan") ||
+              (phase === "during" && currentN
+                ? `Continuar · Día ${currentN}`
+                : "Ver plan") ||
+              "Ver plan completo"
+            }
+          />
         </div>
       </section>
 

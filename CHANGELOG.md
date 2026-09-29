@@ -2,6 +2,14 @@
 
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y el versionado sigue [SemVer](https://semver.org/lang/es/).
 
+## [1.5.0] - 2026-09-28
+
+### Añadido
+
+- Eventos de analítica: `suscribirse_visto`, `suscribirse_click`, `dia_scroll` (50/100 %), `cta_click`, `dia_bloqueado` y `plan_completado`
+- Detección de suscripción bloqueada (ad-blockers, Brave, modo incógnito): si el SDK de OneSignal no inicializa, el evento `suscribirse` registra `resultado: bloqueado` y el botón se reemplaza por un mensaje explicativo
+- El evento `suscribirse` ahora cubre también `no_soportado` y `sin_configurar`
+
 ## [1.4.0] - 2026-09-28
 
 ### Añadido

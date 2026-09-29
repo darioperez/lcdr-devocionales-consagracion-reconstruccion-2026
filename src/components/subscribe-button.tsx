@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { BellIcon, CheckIcon } from "@/components/icons";
 import {
   isOneSignalConfigured,
@@ -10,10 +11,46 @@ import {
 import { trackEvent } from "@/lib/umami";
 import type { SubscribeState } from "@/lib/onesignal";
 
+type Estado = SubscribeState | "bloqueado";
+
+const BLOCK_TIMEOUT_MS = 10_000;
+const CLICK_BLOCK_TIMEOUT_MS = 6_000;
+
+const RESULTADO_POR_ESTADO: Partial<Record<Estado, string>> = {
+  subscribed: "exito",
+  denied: "denegado",
+  bloqueado: "bloqueado",
+  unsupported: "no_soportado",
+  unconfigured: "sin_configurar",
+};
+
 export default function SubscribeButton() {
-  const [state, setState] = useState<SubscribeState>("loading");
+  const [state, setState] = useState<Estado>("loading");
+  const stateRef = useRef<Estado>("loading");
+  const trackedResultRef = useRef<string | null>(null);
+  const seenTrackedRef = useRef(false);
+  const pathname = usePathname();
 
   useEffect(() => {
+    stateRef.current = state;
+
+    const resultado = RESULTADO_POR_ESTADO[state];
+    if (resultado && trackedResultRef.current !== resultado) {
+      trackedResultRef.current = resultado;
+      trackEvent("suscribirse", { resultado });
+    }
+
+    const visible =
+      state === "default" || state === "denied" || state === "bloqueado";
+    if (visible && !seenTrackedRef.current) {
+      seenTrackedRef.current = true;
+      trackEvent("suscribirse_visto", { pagina: pathname ?? "" });
+    }
+  }, [state, pathname]);
+
+  useEffect(() => {
+    const timers: ReturnType<typeof setTimeout>[] = [];
+
     const raf = requestAnimationFrame(() => {
       if (!("serviceWorker" in navigator)) {
         setState("unsupported");
@@ -23,14 +60,29 @@ export default function SubscribeButton() {
         setState("unconfigured");
         return;
       }
-      subscribeToChanges((next) => {
-        setState(next);
-        if (next === "subscribed") trackEvent("suscribirse", { resultado: "exito" });
-        if (next === "denied") trackEvent("suscribirse", { resultado: "denegado" });
-      });
+
+      timers.push(
+        setTimeout(() => {
+          if (stateRef.current === "loading") setState("bloqueado");
+        }, BLOCK_TIMEOUT_MS),
+      );
+
+      subscribeToChanges(setState);
     });
-    return () => cancelAnimationFrame(raf);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      timers.forEach(clearTimeout);
+    };
   }, []);
+
+  function handleClick() {
+    trackEvent("suscribirse_click");
+    requestSubscription();
+    setTimeout(() => {
+      if (stateRef.current === "loading") setState("bloqueado");
+    }, CLICK_BLOCK_TIMEOUT_MS);
+  }
 
   const subscribed = state === "subscribed";
 
@@ -79,18 +131,28 @@ export default function SubscribeButton() {
                 <code className="font-mono">NEXT_PUBLIC_ONESIGNAL_APP_ID</code>.
               </p>
             )}
+            {state === "bloqueado" && (
+              <p className="mt-2 text-xs leading-relaxed text-clay-deep">
+                Parece que una extensión o la configuración del navegador está
+                bloqueando las notificaciones (modo incógnito o un bloqueador de
+                anuncios). Desactívala para poder suscribirte.
+              </p>
+            )}
           </div>
         </div>
-        {!subscribed && state !== "unsupported" && state !== "unconfigured" && (
-          <button
-            type="button"
-            onClick={requestSubscription}
-            className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-clay px-6 text-sm font-semibold text-paper transition-colors hover:bg-clay-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay"
-          >
-            <BellIcon className="h-4 w-4" />
-            Suscribirme
-          </button>
-        )}
+        {!subscribed &&
+          state !== "unsupported" &&
+          state !== "unconfigured" &&
+          state !== "bloqueado" && (
+            <button
+              type="button"
+              onClick={handleClick}
+              className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-clay px-6 text-sm font-semibold text-paper transition-colors hover:bg-clay-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay"
+            >
+              <BellIcon className="h-4 w-4" />
+              Suscribirme
+            </button>
+          )}
       </div>
     </div>
   );

@@ -10,12 +10,14 @@ interface ViewLinkProps
   extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href" | "onClick"> {
   href: string;
   nav?: "next" | "back";
+  onNav?: () => void;
   children: ReactNode;
 }
 
 export default function ViewLink({
   href,
   nav,
+  onNav,
   children,
   ...rest
 }: ViewLinkProps) {
@@ -33,6 +35,7 @@ export default function ViewLink({
     ) {
       return;
     }
+    onNav?.();
     if (typeof document.startViewTransition !== "function") {
       return;
     }

@@ -69,7 +69,22 @@ En iPhone/iPad las notificaciones requieren iOS 16.4+ y agregar el sitio a la pa
 El sitio usa [Umami](https://umami.is) (open source, sin cookies ni banner de consentimiento):
 
 - `NEXT_PUBLIC_UMAMI_WEBSITE_ID` en Vercel habilita el tracking (`src/components/analytics.tsx` carga el script y registra vistas en cada navegación, incluida la navegación suave)
-- Eventos personalizados: `dia_abierto` (`{ dia }`), `suscribirse` (`{ resultado }`), `tema_cambiado` (`{ tema }`) y `visita_notificacion` (`{ dia }`, cuando la URL trae `?origen=notificacion`)
+- Eventos personalizados:
+
+| Evento | Datos | Cuándo |
+|---|---|---|
+| `dia_abierto` | `{ dia }` | Al abrir la página de un día |
+| `plan_completado` | — | Al abrir el día 5 |
+| `dia_scroll` | `{ dia, profundidad: 50\|100 }` | Progreso de lectura del artículo |
+| `dia_bloqueado` | `{ dia }` | Visita a un día aún bloqueado (404) |
+| `cta_click` | `{ fase, destino }` | Clic en el CTA del hero |
+| `suscribirse_visto` | `{ pagina }` | Se muestra la invitación a suscribirse |
+| `suscribirse_click` | — | Clic en «Suscribirme» |
+| `suscribirse` | `{ resultado: exito \| denegado \| bloqueado \| no_soportado \| sin_configurar }` | Estado terminal de la suscripción |
+| `tema_cambiado` | `{ tema }` | Cambio de tema claro/oscuro/sistema |
+| `visita_notificacion` | `{ dia }` | Llegada desde un recordatorio (`?origen=notificacion`) |
+
+El estado `bloqueado` de suscripción se detecta cuando el SDK de OneSignal no inicializa en 10 s (o 6 s tras un clic) — típico de bloqueadores de anuncios, Brave o modo incógnito — y muestra un mensaje explicativo en lugar del botón.
 
 ## Despliegue en Vercel
 

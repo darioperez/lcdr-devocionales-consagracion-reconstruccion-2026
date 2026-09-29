@@ -1,9 +1,11 @@
+import BlockedDayEvent from "@/components/blocked-day-event";
 import ViewLink from "@/components/view-link";
 import { ArrowLeftIcon } from "@/components/icons";
 
 export default function NotFound() {
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col items-center px-6 py-28 text-center">
+      <BlockedDayEvent />
       <p className="font-display text-7xl font-semibold text-clay">Paciencia</p>
       <h1 className="mt-4 font-display text-2xl font-semibold">
         Este día aún no está disponible
