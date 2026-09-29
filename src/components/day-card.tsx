@@ -1,4 +1,5 @@
 import Image from "next/image";
+import DayProgressBadge from "@/components/day-progress-badge";
 import ViewLink from "@/components/view-link";
 import { ArrowRightIcon, LockIcon } from "@/components/icons";
 import { formatDateEs } from "@/lib/format";
@@ -86,6 +87,7 @@ export default function DayCard({
           </p>
           <p className="mt-0.5 truncate text-sm text-smoke">{pasaje}</p>
         </div>
+        <DayProgressBadge dia={n} />
         <span
           className={`shrink-0 ${today ? "text-clay" : "text-smoke"}`}
           aria-hidden="true"

@@ -1,11 +1,37 @@
+import { cookies } from "next/headers";
 import BlockedDayEvent from "@/components/blocked-day-event";
+import EndedMessage from "@/components/ended-message";
 import LockedDayInfo from "@/components/locked-day-info";
 import ViewLink from "@/components/view-link";
 import { ArrowLeftIcon } from "@/components/icons";
-import { dateOfDay, getPlan } from "@/lib/plans";
+import {
+  dateOfDay,
+  getPlan,
+  planEnded,
+  resolveUserTimeZone,
+  todayInTimeZone,
+} from "@/lib/plans";
 
-export default function NotFound() {
+export default async function NotFound() {
   const plan = getPlan();
+  const cookieStore = await cookies();
+  const userTz = resolveUserTimeZone(
+    cookieStore.get("tz")?.value,
+    plan.config.timezone,
+  );
+  const today = todayInTimeZone(userTz);
+
+  if (planEnded(plan, today)) {
+    return (
+      <div className="rise-in mx-auto w-full max-w-3xl px-6 py-24 sm:py-32">
+        <EndedMessage
+          overline={plan.config.titulo}
+          heading="El plan ha terminado"
+        />
+      </div>
+    );
+  }
+
   const fechas: Record<number, string> = {};
   for (const dia of plan.dias) {
     fechas[dia.n] = dateOfDay(plan, dia.n);

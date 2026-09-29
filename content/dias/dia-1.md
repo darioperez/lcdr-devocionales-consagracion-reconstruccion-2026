@@ -3,6 +3,7 @@ dia: 1
 titulo: Oración que sostiene
 pasaje: Nehemías 1:4-11
 imagen: /images/dia-1.jpeg
+compartir: "La oración no es el preámbulo de la obra: es el fundamento."
 ---
 
 ## Reflexión

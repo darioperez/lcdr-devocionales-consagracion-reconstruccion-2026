@@ -2,6 +2,15 @@
 
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y el versionado sigue [SemVer](https://semver.org/lang/es/).
 
+## [1.7.0] - 2026-09-29
+
+### Añadido
+
+- Botón «Compartir» en cada día (Web Share API con respaldo de portapapeles) que envía el hook definido en el frontmatter (`compartir`) + el enlace; eventos `compartir_click` y `compartir_exito`
+- Botón «Marcar como completado» con progreso en `localStorage`: insignia ✓ en la lista del plan y contador «N de 5» en la portada; evento `dia_completado`
+- Cierre del plan: `acceso_hasta` en `content/plan.yaml` (2026-10-05). Desde esa fecha el plan queda bloqueado y la portada, la lista y los días muestran el mensaje «El plan ha terminado… ¡mantente atento!» sin CTA ni invitación a suscribirse
+- Suite e2e ampliada a 23 pruebas con un proyecto dedicado al estado de plan terminado
+
 ## [1.6.0] - 2026-09-29
 
 ### Añadido

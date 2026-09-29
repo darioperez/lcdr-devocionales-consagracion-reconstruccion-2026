@@ -3,6 +3,7 @@ dia: 2
 titulo: Visión que levanta
 pasaje: Nehemías 2:17-18
 imagen: /images/dia-2.jpeg
+compartir: "Un varón consagrado no solo ve el problema: ve lo que Dios puede hacer con el problema."
 ---
 
 ## Reflexión

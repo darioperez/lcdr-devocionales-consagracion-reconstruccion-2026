@@ -63,3 +63,36 @@ test("la navegación del header y el logo van a inicio", async ({ page }) => {
   await page.click("header a[href='/']");
   await expect(page).toHaveURL(/\/$/);
 });
+
+test("el botón de compartir muestra el hook del día", async ({ page }) => {
+  await page.goto("/dias/3");
+  await expect(page.getByRole("button", { name: /Compartir/ })).toBeVisible();
+});
+
+test("marcar como completado persiste y muestra la insignia en la lista", async ({
+  page,
+}) => {
+  await page.goto("/dias/3");
+  await page.click("button:has-text('Marcar como completado')");
+  await expect(page.getByRole("button", { name: /Completado/ })).toBeVisible();
+
+  await page.goto("/dias");
+  const card = page.locator("li", { has: page.locator("a[href='/dias/3']") });
+  await expect(
+    card.locator("[aria-label='Devocional completado']"),
+  ).toBeVisible();
+
+  await page.reload();
+  await expect(
+    card.locator("[aria-label='Devocional completado']"),
+  ).toBeVisible();
+});
+
+test("el contador de progreso aparece en la portada", async ({ page }) => {
+  await page.goto("/dias/3");
+  await page.click("button:has-text('Marcar como completado')");
+  await expect(page.getByRole("button", { name: /Completado/ })).toBeVisible();
+
+  await page.goto("/");
+  await expect(page.locator("text=Has completado 1 de 5")).toBeVisible();
+});

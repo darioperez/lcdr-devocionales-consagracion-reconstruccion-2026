@@ -3,6 +3,7 @@ dia: 3
 titulo: Manos que edifican
 pasaje: Nehemías 4:6; 6:15-16
 imagen: /images/dia-3.jpeg
+compartir: "Los muros no caen por falta de emoción, caen por falta de constancia."
 ---
 
 ## Reflexión

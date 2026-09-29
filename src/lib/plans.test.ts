@@ -3,6 +3,7 @@ import {
   currentDayNumber,
   dateOfDay,
   dayStatus,
+  planEnded,
   planPhase,
   resolveUserTimeZone,
   todayInTimeZone,
@@ -16,6 +17,7 @@ const plan = {
     descripcion: "",
     inicio: "2026-09-28",
     fin: "2026-10-02",
+    acceso_hasta: "2026-10-05",
     timezone: "America/Caracas",
     cierre: { titulo: "", detalle: "" },
     iglesia: { nombre: "", linea: "" },
@@ -106,6 +108,28 @@ describe("resolveUserTimeZone", () => {
       "America/Caracas",
     );
     expect(resolveUserTimeZone("", "America/Caracas")).toBe("America/Caracas");
+  });
+});
+
+describe("planEnded", () => {
+  it("keeps the plan open during the grace period", () => {
+    expect(planEnded(plan, "2026-10-04")).toBe(false);
+  });
+
+  it("ends the plan on the lock date", () => {
+    expect(planEnded(plan, "2026-10-05")).toBe(true);
+  });
+
+  it("stays ended after the lock date", () => {
+    expect(planEnded(plan, "2026-10-10")).toBe(true);
+  });
+
+  it("is never ended when no lock date is configured", () => {
+    const sinCierre = {
+      ...plan,
+      config: { ...plan.config, acceso_hasta: undefined },
+    } as Plan;
+    expect(planEnded(sinCierre, "2030-01-01")).toBe(false);
   });
 });
 

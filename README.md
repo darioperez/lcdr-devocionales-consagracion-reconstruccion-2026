@@ -31,14 +31,20 @@ npm run build
 
 Todo el contenido vive en `content/`:
 
-- `content/plan.yaml` — título, fechas (`inicio`/`fin`), `timezone` (America/Caracas), cierre e iglesia
-- `content/dias/dia-1.md` … `dia-5.md` — frontmatter (`dia`, `titulo`, `pasaje`) + secciones `## Reflexión`, `## Acción del día`, `## Oración`
+- `content/plan.yaml` — título, fechas (`inicio`/`fin`), `acceso_hasta` (fecha de cierre del plan), `timezone` (America/Caracas), cierre e iglesia
+- `content/dias/dia-1.md` … `dia-5.md` — frontmatter (`dia`, `titulo`, `pasaje`, `imagen`, `compartir`) + secciones `## Reflexión`, `## Acción del día`, `## Oración`
 
 Reglas de acceso (implementadas en `src/lib/plans.ts`):
 
 - Un día se desbloquea a la medianoche de su fecha en la **zona horaria del visitante** (detectada con una cookie `tz` en la primera visita); si no se conoce, se usa la zona horaria del plan (America/Caracas)
 - Los días pasados y el actual son accesibles; los futuros muestran estado bloqueado y devuelven 404
+- Desde `acceso_hasta` el plan se bloquea por completo: los días devuelven 404 y la portada y el plan muestran un mensaje de despedida («El plan ha terminado… ¡mantente atento!») sin CTA ni invitación a suscribirse
 - Añadir un nuevo plan = editar fechas y reemplazar los 5 archivos de días
+
+## Progreso y compartir
+
+- Cada día tiene un botón **«Marcar como completado»**; el progreso se guarda en `localStorage` (`src/lib/progress.ts`) y se refleja como insignia ✓ en la lista del plan y en el contador «N de 5» de la portada
+- El botón **«Compartir»** usa la Web Share API (con respaldo de portapapeles) y envía el hook definido en el campo `compartir` de cada día + el enlace
 
 ## Recordatorios (OneSignal)
 

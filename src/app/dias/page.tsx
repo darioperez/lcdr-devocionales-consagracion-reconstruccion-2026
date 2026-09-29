@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import DayCard from "@/components/day-card";
+import EndedMessage from "@/components/ended-message";
 import SubscribeButton from "@/components/subscribe-button";
 import { formatDateEs } from "@/lib/format";
 import {
   dateOfDay,
   dayStatus,
   getPlan,
+  planEnded,
   resolveUserTimeZone,
   todayInTimeZone,
 } from "@/lib/plans";
@@ -26,6 +28,17 @@ export default async function DiasPage() {
     config.timezone,
   );
   const today = todayInTimeZone(userTz);
+
+  if (planEnded(plan, today)) {
+    return (
+      <div className="rise-in mx-auto w-full max-w-3xl px-6 py-24 sm:py-32">
+        <EndedMessage
+          overline={config.titulo}
+          heading="El plan ha terminado"
+        />
+      </div>
+    );
+  }
 
   const fechaInicio = formatDateEs(config.inicio);
   const fechaFin = formatDateEs(config.fin);

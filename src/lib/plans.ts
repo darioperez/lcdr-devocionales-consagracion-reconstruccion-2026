@@ -10,6 +10,7 @@ export interface PlanConfig {
   portada?: string;
   inicio: string;
   fin: string;
+  acceso_hasta?: string;
   timezone: string;
   cierre: { titulo: string; detalle: string };
   iglesia: { nombre: string; linea: string };
@@ -20,6 +21,7 @@ export interface PlanDay {
   titulo: string;
   pasaje: string;
   imagen?: string;
+  compartir?: string;
   contenido: string;
 }
 
@@ -68,6 +70,11 @@ export function planPhase(start: string, end: string, today: string): PlanPhase 
   return "during";
 }
 
+export function planEnded(plan: Plan, today: string): boolean {
+  if (!plan.config.acceso_hasta) return false;
+  return today >= plan.config.acceso_hasta;
+}
+
 export function dayStatus(date: string, today: string): DayStatus {
   return today < date ? "locked" : "open";
 }
@@ -106,6 +113,7 @@ export function getPlan(): Plan {
       titulo: String(data.titulo),
       pasaje: String(data.pasaje),
       imagen: data.imagen ? String(data.imagen) : undefined,
+      compartir: data.compartir ? String(data.compartir) : undefined,
       contenido: content.trim(),
     } satisfies PlanDay;
   });

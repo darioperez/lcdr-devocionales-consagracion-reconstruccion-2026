@@ -3,6 +3,7 @@ dia: 5
 titulo: Pacto que consagra
 pasaje: Nehemías 10:28-29; 13:14, 22, 31
 imagen: /images/dia-5.jpeg
+compartir: "No quiero una consagración de un solo día, sino una vida entera rendida a ti."
 ---
 
 ## Reflexión

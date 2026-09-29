@@ -1,5 +1,7 @@
+import CompletedCount from "@/components/completed-count";
 import Countdown from "@/components/countdown";
 import CtaButton from "@/components/cta-button";
+import EndedMessage from "@/components/ended-message";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
@@ -8,6 +10,7 @@ import { formatDateEs } from "@/lib/format";
 import {
   currentDayNumber,
   getPlan,
+  planEnded,
   planPhase,
   resolveUserTimeZone,
   todayInTimeZone,
@@ -27,12 +30,21 @@ export default async function Home() {
     config.timezone,
   );
   const today = todayInTimeZone(userTz);
+  const ended = planEnded(plan, today);
   const phase = planPhase(config.inicio, config.fin, today);
   const currentN = currentDayNumber(plan, today);
 
   const fechaInicio = formatDateEs(config.inicio);
   const fechaFin = formatDateEs(config.fin);
   const targetStart = `${config.inicio}T00:00:00`;
+
+  if (ended) {
+    return (
+      <div className="rise-in mx-auto w-full max-w-3xl px-6 py-24 sm:py-32">
+        <EndedMessage />
+      </div>
+    );
+  }
 
   return (
     <div className="rise-in mx-auto w-full max-w-3xl px-6 py-16 sm:py-24">
@@ -122,6 +134,7 @@ export default async function Home() {
             }
           />
         </div>
+        {phase !== "before" && <CompletedCount />}
       </section>
 
       <section className="mt-20 border-t border-line pt-10">

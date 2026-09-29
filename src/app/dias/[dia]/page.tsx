@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
+import CompleteDayButton from "@/components/complete-day-button";
 import DayOpenedEvent from "@/components/day-opened-event";
 import Markdown from "@/components/markdown";
 import ScrollDepth from "@/components/scroll-depth";
+import ShareButton from "@/components/share-button";
 import ViewLink from "@/components/view-link";
 import { ArrowLeftIcon, ArrowRightIcon } from "@/components/icons";
 import { formatDateEs, weekdayEs } from "@/lib/format";
@@ -13,6 +15,7 @@ import {
   dayStatus,
   getDay,
   getPlan,
+  planEnded,
   resolveUserTimeZone,
   todayInTimeZone,
 } from "@/lib/plans";
@@ -77,6 +80,7 @@ export default async function DiaPage({ params }: Props) {
     config.timezone,
   );
   const today = todayInTimeZone(userTz);
+  if (planEnded(plan, today)) notFound();
   if (dayStatus(date, today) === "locked") notFound();
 
   const weekday = weekdayEs(date);
@@ -170,6 +174,11 @@ export default async function DiaPage({ params }: Props) {
           </p>
         </aside>
       )}
+
+      <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+        <ShareButton dia={n} titulo={day.titulo} compartir={day.compartir} />
+        <CompleteDayButton dia={n} />
+      </div>
 
       <nav className="mt-14 flex items-center justify-between border-t border-line pt-8">
         {prev ? (

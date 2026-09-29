@@ -3,6 +3,7 @@ dia: 4
 titulo: Palabra que aviva
 pasaje: Nehemías 8:1-8
 imagen: /images/dia-4.jpeg
+compartir: "Un muro sin Palabra es solo piedra; un corazón con Palabra es un corazón transformado."
 ---
 
 ## Reflexión
