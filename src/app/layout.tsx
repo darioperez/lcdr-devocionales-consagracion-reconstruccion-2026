@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { cookies } from "next/headers";
 import { Fraunces, Inter } from "next/font/google";
+import Image from "next/image";
 import Script from "next/script";
 import Analytics from "@/components/analytics";
 import ThemeToggle from "@/components/theme-toggle";
@@ -127,9 +128,18 @@ OneSignalDeferred.push(async function (OneSignal) {
           <div className="mx-auto flex h-16 w-full max-w-3xl items-center justify-between gap-3 px-4 sm:px-6">
             <ViewLink
               href="/"
-              className="min-w-0 truncate font-display text-base font-semibold tracking-tight sm:text-lg"
+              className="flex min-w-0 items-center gap-2.5"
             >
-              {plan.config.titulo}
+              <Image
+                src="/logo-lcdr.png"
+                alt="Logo de LCDR"
+                width={256}
+                height={189}
+                className="h-8 w-auto shrink-0"
+              />
+              <span className="min-w-0 truncate font-display text-base font-semibold tracking-tight sm:text-lg">
+                {plan.config.titulo}
+              </span>
             </ViewLink>
             <nav className="flex shrink-0 items-center gap-0.5 text-sm sm:gap-1">
               <ViewLink
@@ -147,6 +157,13 @@ OneSignalDeferred.push(async function (OneSignal) {
 
         <footer className="border-t border-line pb-[env(safe-area-inset-bottom)]">
           <div className="mx-auto flex w-full max-w-3xl flex-col items-center gap-1 px-6 py-10 text-center">
+            <Image
+              src="/logo-lcdr.png"
+              alt="Logo de LCDR"
+              width={256}
+              height={189}
+              className="mb-2 h-12 w-auto"
+            />
             <p className="font-display text-sm font-semibold">
               {plan.config.titulo}
             </p>
