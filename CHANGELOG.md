@@ -2,6 +2,27 @@
 
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y el versionado sigue [SemVer](https://semver.org/lang/es/).
 
+## [1.4.0] - 2026-09-28
+
+### Añadido
+
+- Analítica con Umami (OSS, sin cookies): vistas de página en navegación suave y eventos personalizados `dia_abierto`, `suscribirse`, `tema_cambiado` y `visita_notificacion`
+
+### Corregido
+
+- Recordatorios: ancla `send_after` a mediodía UTC para evitar entrega un día antes en zonas al oeste de UTC-4
+- Los enlaces de los recordatorios incluyen `?origen=notificacion` para medir llegadas desde notificaciones
+
+### Cambiado
+
+- Revertido el desbloqueo temporal del día 1 (día de lanzamiento: el acceso vuelve a regirse por las fechas reales)
+
+## [1.3.1] - 2026-09-28
+
+### Cambiado
+
+- Portada de la serie actualizada (`portada.jpeg`, 1080×1440) y dimensiones OG/Homepage ajustadas
+
 ## [1.3.0] - 2026-09-27
 
 ### Añadido

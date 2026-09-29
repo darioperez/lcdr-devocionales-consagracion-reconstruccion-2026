@@ -26,6 +26,13 @@ const REST_KEY = process.env.ONESIGNAL_REST_API_KEY;
 const BASE_URL = (process.env.BASE_URL ?? "").replace(/\/+$/, "");
 
 const SEND = process.argv.includes("--send");
+const daysArg = process.argv.find((a) => a.startsWith("--days="));
+const DIAS = daysArg
+  ? daysArg
+      .split("=")[1]
+      .split(",")
+      .map((n) => Number(n.trim()))
+  : [1, 2, 3, 4, 5];
 
 function fail(msg) {
   console.error(`✖ ${msg}`);
@@ -53,7 +60,7 @@ const titulos = {
   5: "Pacto que consagra",
 };
 
-const notificaciones = [1, 2, 3, 4, 5].map((n) => ({
+const notificaciones = DIAS.map((n) => ({
   app_id: APP_ID,
   name: `Devocional · Día ${n}`,
   filters: [{ field: "session_count", relation: ">", value: "0" }],
@@ -65,17 +72,18 @@ const notificaciones = [1, 2, 3, 4, 5].map((n) => ({
     en: `Es tiempo de edificar. No te pierdas el devocional de hoy, ${titulos[n]}`,
     es: `Es tiempo de edificar. No te pierdas el devocional de hoy, ${titulos[n]}`,
   },
-  url: `${BASE_URL}/dias/${n}`,
+  url: `${BASE_URL}/dias/${n}?origen=notificacion`,
   delayed_option: "timezone",
   delivery_time_of_day: "8:00PM",
-  send_after: `${fecha(n)}T00:00:00Z`,
+  send_after: `${fecha(n)}T12:00:00Z`,
 }));
 
 if (!SEND) {
   console.log("Vista previa (usa --send para programar):\n");
   for (const n of notificaciones) {
+    const dia = Number(/\/dias\/(\d+)/.exec(n.url)?.[1]);
     console.log(
-      `  Día ${notificaciones.indexOf(n) + 1} · ${fecha(notificaciones.indexOf(n) + 1)} · 8:00 PM (hora local) · ${n.url}`,
+      `  Día ${dia} · ${fecha(dia)} · 8:00 PM (hora local) · ${n.url}`,
     );
   }
   console.log(
@@ -85,6 +93,7 @@ if (!SEND) {
 }
 
 for (const n of notificaciones) {
+  const dia = Number(/\/dias\/(\d+)/.exec(n.url)?.[1]);
   const res = await fetch("https://api.onesignal.com/notifications", {
     method: "POST",
     headers: {
@@ -95,13 +104,9 @@ for (const n of notificaciones) {
   });
   const body = await res.json().catch(() => ({}));
   if (!res.ok || !body.id || (body.errors && body.errors.length > 0)) {
-    fail(
-      `Día ${notificaciones.indexOf(n) + 1}: ${res.status} ${JSON.stringify(body)}`,
-    );
+    fail(`Día ${dia}: ${res.status} ${JSON.stringify(body)}`);
   }
-  console.log(
-    `✔ Día ${notificaciones.indexOf(n) + 1} programado (id: ${body.id})`,
-  );
+  console.log(`✔ Día ${dia} programado (id: ${body.id})`);
 }
 
 console.log("\nListo. Los recordatorios llegarán a las 8:00 PM hora local.");

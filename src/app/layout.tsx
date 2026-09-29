@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { cookies } from "next/headers";
 import { Fraunces, Inter } from "next/font/google";
 import Script from "next/script";
+import Analytics from "@/components/analytics";
 import ThemeToggle from "@/components/theme-toggle";
 import ViewLink from "@/components/view-link";
 import { getPlan } from "@/lib/plans";
@@ -64,6 +65,7 @@ export const viewport: Viewport = {
 };
 
 const appId = process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID;
+const umamiId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
 
 const tzInitScript = `(function () {
   try {
@@ -92,6 +94,16 @@ export default async function RootLayout({
     >
       <body className="flex min-h-dvh flex-col overflow-x-clip antialiased">
         <script dangerouslySetInnerHTML={{ __html: tzInitScript }} />
+        {umamiId && (
+          <>
+            <Script
+              src="https://cloud.umami.is/script.js"
+              data-website-id={umamiId}
+              strategy="afterInteractive"
+            />
+            <Analytics />
+          </>
+        )}
         {appId && (
           <>
             <Script

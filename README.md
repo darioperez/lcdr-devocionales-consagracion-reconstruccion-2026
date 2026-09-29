@@ -49,9 +49,10 @@ Reglas de acceso (implementadas en `src/lib/plans.ts`):
 ```bash
 npm run reminders            # vista previa
 npm run reminders -- --send  # programa los 5 envíos
+npm run reminders -- --send --days=3,4,5  # solo algunos días
 ```
 
-Cada recordatorio se entrega a las **8:00 PM en la zona horaria local del suscriptor** y abre la página del día correspondiente.
+Cada recordatorio se entrega a las **8:00 PM en la zona horaria local del suscriptor** (anclado a mediodía UTC de su fecha para evitar entregas un día antes) y abre la página del día con `?origen=notificacion`.
 
 ### Notas del plan gratuito de OneSignal
 
@@ -63,11 +64,18 @@ Cada recordatorio se entrega a las **8:00 PM en la zona horaria local del suscri
 
 En iPhone/iPad las notificaciones requieren iOS 16.4+ y agregar el sitio a la pantalla de inicio (Compartir → Añadir a pantalla de inicio). El botón de suscripción muestra esta indicación cuando el navegador no soporta push.
 
+## Analítica (Umami)
+
+El sitio usa [Umami](https://umami.is) (open source, sin cookies ni banner de consentimiento):
+
+- `NEXT_PUBLIC_UMAMI_WEBSITE_ID` en Vercel habilita el tracking (`src/components/analytics.tsx` carga el script y registra vistas en cada navegación, incluida la navegación suave)
+- Eventos personalizados: `dia_abierto` (`{ dia }`), `suscribirse` (`{ resultado }`), `tema_cambiado` (`{ tema }`) y `visita_notificacion` (`{ dia }`, cuando la URL trae `?origen=notificacion`)
+
 ## Despliegue en Vercel
 
 1. Crea un repositorio en GitHub y sube este proyecto
 2. Importa el repo en Vercel (framework: Next.js, root: por defecto)
-3. Variables de entorno: `NEXT_PUBLIC_ONESIGNAL_APP_ID` (el resto solo se usan localmente o en scripts)
+3. Variables de entorno: `NEXT_PUBLIC_ONESIGNAL_APP_ID` y `NEXT_PUBLIC_UMAMI_WEBSITE_ID` (el resto solo se usan localmente o en scripts)
 4. Despliega; luego corre `npm run reminders -- --send` con `BASE_URL` apuntando a la URL de producción
 
 ## Versiones (semver)

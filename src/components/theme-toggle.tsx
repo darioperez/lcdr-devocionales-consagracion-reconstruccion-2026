@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { MonitorIcon, MoonIcon, SunIcon } from "@/components/icons";
+import { trackEvent } from "@/lib/umami";
 
 export type Theme = "system" | "light" | "dark";
 
@@ -72,6 +73,7 @@ export default function ThemeToggle() {
     const next = ORDER[(ORDER.indexOf(theme) + 1) % ORDER.length];
     setTheme(next);
     applyTheme(next);
+    trackEvent("tema_cambiado", { tema: next });
   }
 
   const Icon =

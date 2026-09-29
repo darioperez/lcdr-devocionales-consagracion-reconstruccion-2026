@@ -7,6 +7,7 @@ import {
   requestSubscription,
   subscribeToChanges,
 } from "@/lib/onesignal";
+import { trackEvent } from "@/lib/umami";
 import type { SubscribeState } from "@/lib/onesignal";
 
 export default function SubscribeButton() {
@@ -22,7 +23,11 @@ export default function SubscribeButton() {
         setState("unconfigured");
         return;
       }
-      subscribeToChanges(setState);
+      subscribeToChanges((next) => {
+        setState(next);
+        if (next === "subscribed") trackEvent("suscribirse", { resultado: "exito" });
+        if (next === "denied") trackEvent("suscribirse", { resultado: "denegado" });
+      });
     });
     return () => cancelAnimationFrame(raf);
   }, []);
