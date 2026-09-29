@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { cookies } from "next/headers";
 import { Fraunces, Inter } from "next/font/google";
-import Image from "next/image";
 import Script from "next/script";
 import Analytics from "@/components/analytics";
+import BrandLogo from "@/components/brand-logo";
 import ThemeToggle from "@/components/theme-toggle";
 import ViewLink from "@/components/view-link";
 import { getPlan } from "@/lib/plans";
@@ -130,13 +130,7 @@ OneSignalDeferred.push(async function (OneSignal) {
               href="/"
               className="flex min-w-0 items-center gap-2.5"
             >
-              <Image
-                src="/logo-lcdr.png"
-                alt="Logo de LCDR"
-                width={256}
-                height={189}
-                className="h-8 w-auto shrink-0"
-              />
+              <BrandLogo className="h-8 w-auto" />
               <span className="min-w-0 truncate font-display text-base font-semibold tracking-tight sm:text-lg">
                 {plan.config.titulo}
               </span>
@@ -157,13 +151,7 @@ OneSignalDeferred.push(async function (OneSignal) {
 
         <footer className="border-t border-line pb-[env(safe-area-inset-bottom)]">
           <div className="mx-auto flex w-full max-w-3xl flex-col items-center gap-1 px-6 py-10 text-center">
-            <Image
-              src="/logo-lcdr.png"
-              alt="Logo de LCDR"
-              width={256}
-              height={189}
-              className="mb-2 h-12 w-auto"
-            />
+            <BrandLogo className="mb-2 h-12 w-auto" />
             <p className="font-display text-sm font-semibold">
               {plan.config.titulo}
             </p>

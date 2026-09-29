@@ -40,6 +40,34 @@
   --clay-soft: #3b2619;
 }
 
+/* ---------- Brand logo per color scheme ---------- */
+
+.logo-light {
+  display: block;
+}
+
+.logo-dark {
+  display: none;
+}
+
+html.dark .logo-light {
+  display: none;
+}
+
+html.dark .logo-dark {
+  display: block;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not(.light):not(.dark) .logo-light {
+    display: none;
+  }
+
+  html:not(.light):not(.dark) .logo-dark {
+    display: block;
+  }
+}
+
 @theme inline {
   --color-paper: var(--paper);
   --color-cream: var(--cream);
